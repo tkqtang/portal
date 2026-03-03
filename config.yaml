@@ -1,6 +1,7 @@
 ui:
   pageTitle: "tkqtang Portal"
-  bookmarkTitle: "自定义网站导航"
+  bookmarkTitle: "自定义"
+  favicon: "./assets/favicon.png"
   showClock: true
   showRegion: true
   showWeather: true

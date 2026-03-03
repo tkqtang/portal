@@ -57,6 +57,7 @@ groups:
 ## 常用配置项
 
 - `ui.showSearch/showBookmarks/showHotPanel/showClock/showRegion/showWeather`
+- `ui.favicon`（例如 `./assets/favicon.png`）
 - `search.defaultEngine`
 - `search.engines[]`（`enabled/url/queryKey/params/mode`）
 - `bookmarks.source`（建议 `./links.yaml`）

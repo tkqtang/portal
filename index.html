@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>极简导航页</title>
+  <link id="favicon-link" rel="icon" type="image/png" href="./assets/favicon.png">
   <link rel="stylesheet" href="./assets/font/iconfont.css">
   <script>
     (function () {
@@ -1635,6 +1636,7 @@
       if (title) {
         document.title = title;
       }
+      applyConfiguredFavicon(String(ui.favicon || "").trim());
 
       const bookmarkTitle = String(ui.bookmarkTitle || "").trim();
       if (bookmarkTitle) {
@@ -1692,6 +1694,28 @@
     function safeHttpUrl(url) {
       const raw = String(url || "").trim();
       return /^https?:\/\//i.test(raw) ? raw : "#";
+    }
+
+    function detectFaviconMimeType(url) {
+      const value = String(url || "").toLowerCase().split(/[?#]/)[0];
+      if (value.endsWith(".png")) return "image/png";
+      if (value.endsWith(".svg")) return "image/svg+xml";
+      if (value.endsWith(".ico")) return "image/x-icon";
+      if (value.endsWith(".webp")) return "image/webp";
+      if (value.endsWith(".jpg") || value.endsWith(".jpeg")) return "image/jpeg";
+      return "image/x-icon";
+    }
+
+    function applyConfiguredFavicon(rawPath) {
+      const path = String(rawPath || "").trim();
+      if (!path) return;
+      const resolved = resolveConfigRelativeUrl(path);
+      if (!resolved) return;
+
+      const link = byId("favicon-link") || document.querySelector("link[rel='icon']");
+      if (!link) return;
+      link.setAttribute("href", resolved);
+      link.setAttribute("type", detectFaviconMimeType(resolved));
     }
 
     function normalizeTimeoutMs(raw, fallback = 5000) {
