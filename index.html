@@ -1,0 +1,2867 @@
+<!doctype html>
+<html lang="zh-CN" theme-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>极简导航页</title>
+  <link rel="stylesheet" href="./assets/font/iconfont.css">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("themeMode");
+        var mode = stored === "light" || stored === "dark"
+          ? stored
+          : ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+        document.documentElement.setAttribute("theme-mode", mode);
+      } catch (error) {
+        document.documentElement.setAttribute("theme-mode", "light");
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --gray-o1: rgba(255, 255, 255, 0.1);
+      --gray-o2: rgba(255, 255, 255, 0.2);
+      --gray-o3: rgba(255, 255, 255, 0.3);
+      --gray-o4: rgba(255, 255, 255, 0.4);
+      --gray-o5: rgba(255, 255, 255, 0.5);
+      --gray-o6: rgba(255, 255, 255, 0.6);
+      --gray-o7: rgba(255, 255, 255, 0.7);
+      --gray-o8: rgba(255, 255, 255, 0.8);
+      --gray-o9: rgba(255, 255, 255, 0.9);
+      --gray-0: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --red-400: #f87171;
+      --red-500: #ef4444;
+      --green-500: #10b981;
+      --blue-100: #dbeafe;
+      --blue-400: #60a5fa;
+      --blue-500: #3b82f6;
+      --danger: #dc3545;
+      --brand: #60a5fa;
+      --brand-soft: #dbeafe;
+      --radius-md: 3px;
+      --radius-sm: 2px;
+      --content-max: 1260px;
+      --edge-pad: 20px;
+      --panel-pad: 10px;
+      --section-gap: 10px;
+      --panel-head-h: 40px;
+      --transition: 180ms ease;
+      --hero-image-light: url("./assets/wallpaper/hero.jpg");
+      --hero-image-dark: url("./assets/wallpaper/hero.jpg");
+      --hero-image-current: var(--hero-image-light);
+      --hero-overlay-start: rgba(17, 24, 39, 0.42);
+      --hero-overlay-end: rgba(17, 24, 39, 0.3);
+    }
+
+    :root[theme-mode='dark'] {
+      --gray-o9: rgba(255, 255, 255, 0.1);
+      --gray-o8: rgba(255, 255, 255, 0.2);
+      --gray-o7: rgba(255, 255, 255, 0.3);
+      --gray-o6: rgba(255, 255, 255, 0.4);
+      --gray-o5: rgba(255, 255, 255, 0.5);
+      --gray-o4: rgba(255, 255, 255, 0.6);
+      --gray-o3: rgba(255, 255, 255, 0.7);
+      --gray-o2: rgba(255, 255, 255, 0.8);
+      --gray-o1: rgba(255, 255, 255, 0.9);
+      --gray-900: #f9fafb;
+      --gray-800: #f3f4f6;
+      --gray-700: #e5e7eb;
+      --gray-600: #d1d5db;
+      --gray-500: #9ca3af;
+      --gray-400: #6b7280;
+      --gray-300: #4b5563;
+      --gray-200: #374151;
+      --gray-100: #1f2937;
+      --gray-50: #111827;
+      --gray-0: #000000;
+      --red-400: #ef4444;
+      --red-500: #f87171;
+      --green-500: #34d399;
+      --blue-100: #1e40af;
+      --blue-400: #3b82f6;
+      --blue-500: #60a5fa;
+      --danger: #f87171;
+      --brand: #60a5fa;
+      --brand-soft: #1e3a8a;
+      --hero-image-current: var(--hero-image-dark);
+      --hero-overlay-start: rgba(2, 6, 23, 0.74);
+      --hero-overlay-end: rgba(2, 6, 23, 0.56);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    body {
+      margin: 0;
+      font-size: 14px;
+      color: var(--gray-600);
+      min-height: 100vh;
+      background: var(--gray-0);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      overflow-x: hidden;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 285px;
+      color: var(--gray-50);
+      background-image:
+        linear-gradient(0deg, var(--hero-overlay-start), var(--hero-overlay-end)),
+        var(--hero-image-current);
+      background-size: cover;
+      background-position: center center;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    .hero::before {
+      content: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 max(var(--edge-pad), env(safe-area-inset-right)) 16px max(var(--edge-pad), env(safe-area-inset-left));
+      z-index: 1;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      min-height: 75px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+
+    .top-center {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 12px;
+      color: var(--gray-50);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      text-align: left;
+      margin: 0;
+      margin-right: auto;
+    }
+
+    .top-sep {
+      opacity: 0.7;
+      font-size: 0.8em;
+      user-select: none;
+    }
+
+    .theme-switch {
+      border: 0;
+      border-radius: 0;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--gray-50);
+      cursor: pointer;
+      transition: var(--transition);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .theme-switch-symbol {
+      font-size: 24px;
+      line-height: 1;
+      display: inline-block;
+    }
+
+    .theme-switch:hover {
+      background: transparent;
+      color: var(--gray-0);
+    }
+
+    :root[theme-mode='dark'] .theme-switch {
+      background: transparent;
+      border: 0;
+      color: rgba(241, 245, 249, 0.9);
+    }
+
+    :root[theme-mode='dark'] .theme-switch:hover {
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .clock-main,
+    .region-main,
+    .weather-main {
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+
+    .weather-main .iconfont {
+      margin-right: 4px;
+    }
+
+    .search-shell {
+      width: min(600px, 100%);
+      margin: 34px auto 0;
+      animation: float-in 450ms ease;
+      position: relative;
+    }
+
+    .engine-tabs {
+      display: flex;
+      justify-content: space-around;
+      gap: 0;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+      scrollbar-width: thin;
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      color: var(--gray-50);
+    }
+
+    .engine-tabs::-webkit-scrollbar,
+    .group-tabs::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .engine-tabs::-webkit-scrollbar-thumb,
+    .group-tabs::-webkit-scrollbar-thumb {
+      background: #c7d2e4;
+      border-radius: 999px;
+    }
+
+    .engine-tab {
+      border: none;
+      background: transparent;
+      color: inherit;
+      border-radius: 0;
+      padding: 4px 8px;
+      font: inherit;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      min-height: 32px;
+      opacity: 0.82;
+    }
+
+    .engine-tab:hover {
+      color: var(--gray-0);
+      background: transparent;
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .engine-tab.active {
+      color: var(--gray-0);
+      background: transparent;
+      border-color: transparent;
+      opacity: 1;
+      font-weight: 700;
+      transform: translateY(-2px);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      animation: engine-tab-float 2.2s ease-in-out infinite;
+    }
+
+    .engine-tab.active::after {
+      content: none;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 40px;
+      border-radius: 3px;
+      border: none;
+      background: var(--gray-o7);
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .search-mark {
+      width: 50px;
+      height: 100%;
+      border-radius: 0;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: var(--gray-700);
+      user-select: none;
+      border: none;
+      flex: 0 0 50px;
+    }
+
+    .search-mark .iconfont {
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .icon-fallback {
+      display: none;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--gray-700);
+      letter-spacing: 0.01em;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--gray-700);
+      font: inherit;
+      font-size: 14px;
+      min-width: 0;
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      padding: 0 6px;
+    }
+
+    .search-input::placeholder {
+      color: var(--gray-600);
+    }
+
+    .search-btn {
+      border: none;
+      border-radius: 0;
+      width: 50px;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      color: var(--gray-700);
+      font: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+      display: grid;
+      place-items: center;
+      flex: 0 0 50px;
+    }
+
+    .search-btn:hover {
+      background: transparent;
+      color: var(--gray-800);
+    }
+
+    .search-btn .iconfont {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    :root[theme-mode='dark'] .search-form {
+      background: rgba(17, 24, 39, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 14px 28px -20px rgba(0, 0, 0, 0.85);
+    }
+
+    :root[theme-mode='dark'] .search-mark,
+    :root[theme-mode='dark'] .search-input,
+    :root[theme-mode='dark'] .search-btn,
+    :root[theme-mode='dark'] .icon-fallback {
+      color: var(--gray-700);
+    }
+
+    :root[theme-mode='dark'] .search-input::placeholder {
+      color: var(--gray-500);
+    }
+
+    /* Keep hero texts readable on dark wallpaper */
+    :root[theme-mode='dark'] .top-center,
+    :root[theme-mode='dark'] .engine-tabs {
+      color: rgba(241, 245, 249, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    }
+
+    :root[theme-mode='dark'] .engine-tab:hover,
+    :root[theme-mode='dark'] .engine-tab.active {
+      color: #ffffff;
+    }
+
+    .main {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 max(var(--edge-pad), env(safe-area-inset-right)) 26px max(var(--edge-pad), env(safe-area-inset-left));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 10px;
+      align-items: start;
+      background: var(--gray-50);
+    }
+
+    .main.single-column {
+      grid-template-columns: 1fr;
+    }
+
+    .main.single-column .hot-panel {
+      position: static;
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    .panel {
+      background: var(--gray-0);
+      border: 0;
+      border-radius: var(--radius-sm);
+      box-shadow: none;
+    }
+
+    .bookmarks {
+      padding: 10px 0 20px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: var(--panel-head-h);
+      margin: 0;
+      padding: 10px 20px;
+    }
+
+    .section-title {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 16px;
+      line-height: 1.2;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .section-title .iconfont {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .group-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0 20px;
+      padding: 10px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--gray-50);
+    }
+
+    .group-tab {
+      border: 1px solid #0000;
+      border-radius: 3px;
+      padding: 10px;
+      background: #0000;
+      color: var(--gray-600);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: transform 220ms cubic-bezier(0.2, 0.78, 0.24, 1), background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+      white-space: nowrap;
+      min-height: 40px;
+      width: 110px;
+      text-align: center;
+      transform-origin: center bottom;
+      will-change: transform;
+      position: relative;
+      z-index: 0;
+    }
+
+    .group-tab:hover {
+      background: var(--gray-100);
+      transform: translateY(-8px) scale(1.03);
+      z-index: 3;
+    }
+
+    .group-tab:active {
+      transform: translateY(-3px) scale(1.015);
+    }
+
+    .group-tab.active {
+      background: transparent;
+      color: var(--red-500);
+      border-color: transparent;
+    }
+
+    .bookmark-sections {
+      display: grid;
+      gap: var(--section-gap);
+      padding: 10px;
+    }
+
+    .bookmark-section {
+      background: var(--gray-0);
+      border: 0;
+      border-radius: 2px;
+      padding: 10px;
+      box-shadow: none;
+    }
+
+    .bookmark-section-head {
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray-700);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .bookmark-section-head .iconfont {
+      color: inherit;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .site-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 180px));
+      justify-content: start;
+    }
+
+    .site-card {
+      position: relative;
+      display: block;
+      width: 180px;
+      height: 50px;
+      background: var(--gray-0);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      border-radius: 3px;
+      padding: 5px;
+      transition: transform 220ms cubic-bezier(0.2, 0.78, 0.24, 1);
+      animation: rise-in 260ms ease both;
+      box-shadow: 0 0 20px -5px rgba(158, 158, 158, 0.2);
+      color: var(--gray-600);
+      overflow: hidden;
+      transform-origin: center bottom;
+      will-change: transform;
+      z-index: 0;
+    }
+
+    .site-card:hover,
+    .site-card.is-hover {
+      transform: translateY(-14px) scale(1.06);
+      box-shadow: none;
+      border-color: transparent;
+      z-index: 3;
+    }
+
+    .site-card:active {
+      transform: translateY(-5px) scale(1.03);
+    }
+
+    .site-icon {
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--gray-700);
+      background: var(--gray-100);
+      user-select: none;
+      border: 0;
+      transition: transform 220ms ease;
+    }
+
+    .site-card:hover .site-icon,
+    .site-card.is-hover .site-icon {
+      transform: translateY(-2px) scale(1.08);
+    }
+
+    .site-card > span:last-child {
+      display: block;
+      margin-left: 60px;
+      width: calc(100% - 60px);
+    }
+
+    .site-title {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-700);
+      line-height: 1.2;
+      margin-bottom: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .site-desc {
+      display: block;
+      color: var(--gray-400);
+      font-size: 12px;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .empty {
+      border: 1px dashed var(--gray-300);
+      border-radius: 3px;
+      padding: 14px;
+      color: var(--gray-500);
+      background: var(--gray-50);
+    }
+
+    .hot-panel {
+      padding: 10px 20px 14px;
+      position: sticky;
+      top: 10px;
+    }
+
+    .hot-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: var(--panel-head-h);
+      margin-bottom: 8px;
+    }
+
+    .hot-refresh {
+      border: 1px solid var(--gray-200);
+      border-radius: 3px;
+      background: var(--gray-0);
+      color: var(--gray-600);
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font: inherit;
+      font-weight: 400;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .hot-refresh .iconfont {
+      font-size: 16px;
+      transition: transform 220ms ease;
+    }
+
+    .hot-refresh:hover {
+      color: var(--gray-700);
+      background: var(--gray-100);
+      border-color: var(--gray-300);
+    }
+
+    .hot-refresh:hover .iconfont {
+      transform: rotate(90deg);
+    }
+
+    .hot-source-wrap {
+      position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .hot-source-select {
+      width: 100%;
+      border: 1px solid var(--gray-200);
+      border-radius: 3px;
+      padding: 6px 30px 6px 8px;
+      background: var(--gray-0);
+      color: var(--gray-700);
+      font: inherit;
+      min-width: 0;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: var(--transition);
+    }
+
+    .hot-source-select:hover {
+      border-color: var(--gray-300);
+      background: var(--gray-50);
+    }
+
+    .hot-source-arrow {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-500);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .hot-status {
+      min-height: 0;
+      margin: 0 0 4px;
+      color: var(--gray-500);
+      font-size: 0.85rem;
+    }
+
+    .hot-status:empty {
+      display: none;
+    }
+
+    .hot-status.error {
+      color: var(--danger);
+    }
+
+    .hot-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    .hot-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .hot-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 4px;
+      align-items: baseline;
+      padding: 1px 0;
+      transition: var(--transition);
+      min-height: 0;
+    }
+
+    .hot-item:hover {
+      color: var(--blue-500);
+    }
+
+    .hot-item-static {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .rank {
+      width: auto;
+      height: auto;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--gray-500);
+      border: none;
+      background: transparent;
+    }
+
+    .rank.top3 {
+      color: var(--red-500);
+    }
+
+    .hot-name {
+      display: block;
+      font-size: 13px;
+      line-height: 1.42;
+      color: var(--gray-700);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hot-meta {
+      display: inline;
+      margin-left: 4px;
+      color: var(--gray-500);
+      font-size: 0.74rem;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--gray-500);
+      padding: 18px 10px 26px;
+      font-size: 0.86rem;
+    }
+
+    .footer a {
+      color: var(--blue-500);
+    }
+
+    .engine-tab:focus-visible,
+    .group-tab:focus-visible,
+    .search-btn:focus-visible,
+    .hot-refresh:focus-visible,
+    .hot-source-select:focus-visible,
+    .theme-switch:focus-visible {
+      outline: 2px solid #93c5fd;
+      outline-offset: 2px;
+    }
+
+    .hot-refresh:disabled,
+    .hot-source-select:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .search-input:focus-visible {
+      outline: none;
+    }
+
+    @keyframes engine-tab-float {
+      0%,
+      100% {
+        transform: translateY(-2px);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1280px) {
+      :root {
+        --content-max: 1160px;
+      }
+
+      .main {
+        grid-template-columns: minmax(0, 1fr) 300px;
+      }
+
+      .site-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 180px));
+      }
+    }
+
+    @media (max-width: 1080px) {
+      :root {
+        --panel-pad: 16px;
+        --section-gap: 12px;
+      }
+
+      .main {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .hot-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-top {
+        min-height: 56px;
+      }
+
+      .clock-main,
+      .region-main,
+      .weather-main {
+        font-size: 13px;
+      }
+
+      .search-shell {
+        width: min(520px, 100%);
+        margin-top: 28px;
+      }
+
+      .engine-tabs {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .engine-tab {
+        flex: 0 0 auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --edge-pad: 14px;
+        --panel-pad: 14px;
+      }
+
+      .hero-inner {
+        padding: 0 max(14px, env(safe-area-inset-right)) 14px max(14px, env(safe-area-inset-left));
+      }
+
+      .main {
+        padding: 0 max(14px, env(safe-area-inset-right)) 18px max(14px, env(safe-area-inset-left));
+      }
+
+      .hero-top {
+        min-height: 52px;
+        align-items: center;
+        padding-top: 0;
+        gap: 8px;
+      }
+
+      .top-center {
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        text-align: left;
+        gap: 4px 8px;
+      }
+
+      .theme-switch {
+        flex: 0 0 42px;
+      }
+
+      .search-shell {
+        margin-top: 22px;
+        width: 100%;
+      }
+
+      .engine-tabs {
+        position: static;
+        top: auto;
+        left: auto;
+        width: auto;
+        margin: 0 0 10px;
+        padding: 2px 0 4px;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+      }
+
+      .engine-tab {
+        flex: 0 0 auto;
+        min-height: 36px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        scroll-snap-align: start;
+        opacity: 1;
+      }
+
+      .engine-tab.active {
+        transform: none;
+        animation: none;
+        text-shadow: none;
+        background: rgba(255, 255, 255, 0.28);
+        border-color: rgba(255, 255, 255, 0.42);
+      }
+
+      :root[theme-mode='dark'] .engine-tab {
+        background: rgba(15, 23, 42, 0.46);
+        border-color: rgba(148, 163, 184, 0.35);
+      }
+
+      :root[theme-mode='dark'] .engine-tab.active {
+        background: rgba(15, 23, 42, 0.68);
+        border-color: rgba(148, 163, 184, 0.5);
+      }
+
+      .search-form {
+        height: 44px;
+        border-radius: 14px;
+      }
+
+      .search-btn {
+        width: 44px;
+        flex-basis: 44px;
+      }
+
+      .search-input {
+        font-size: 16px;
+        padding: 0 8px;
+      }
+
+      .search-mark {
+        width: 44px;
+        flex-basis: 44px;
+      }
+
+      .section-head {
+        min-height: 36px;
+        padding: 8px 14px;
+      }
+
+      .site-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .site-card {
+        width: 100%;
+        height: 56px;
+        padding: 6px;
+      }
+
+      .site-icon {
+        top: 7px;
+        left: 8px;
+        width: 40px;
+        height: 40px;
+      }
+
+      .site-card > span:last-child {
+        margin-left: 52px;
+        width: calc(100% - 52px);
+      }
+
+      .group-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 0 14px;
+        padding: 8px 0 10px;
+        gap: 8px;
+        background: transparent;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+      }
+
+      .group-tab {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 96px;
+        min-height: 36px;
+        padding: 8px 12px;
+        border: 1px solid var(--gray-200);
+        background: var(--gray-0);
+        scroll-snap-align: start;
+      }
+
+      .group-tab.active {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.34);
+      }
+
+      .bookmark-sections {
+        padding: 8px 14px;
+      }
+
+      .hot-panel {
+        padding: 10px 14px 12px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        min-height: 250px;
+      }
+
+      .theme-switch {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        justify-content: center;
+      }
+
+      .top-center {
+        gap: 2px 8px;
+      }
+
+      .clock-main {
+        flex: 1 0 100%;
+      }
+
+      .clock-main,
+      .region-main,
+      .weather-main {
+        font-size: 12px;
+      }
+
+      .section-title {
+        font-size: 15px;
+      }
+
+      .top-sep {
+        display: none;
+      }
+
+      .search-mark {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+      }
+
+      .search-mark .iconfont {
+        font-size: 21px;
+      }
+
+      .search-btn {
+        min-height: 38px;
+        width: 38px;
+        flex-basis: 38px;
+      }
+
+      .site-card {
+        height: 54px;
+      }
+
+      .site-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      .site-card > span:last-child {
+        margin-left: 50px;
+        width: calc(100% - 50px);
+      }
+
+      .site-title {
+        font-size: 13px;
+      }
+
+      .site-desc {
+        font-size: 11px;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+      .hero-inner {
+        padding-top: 12px;
+      }
+
+      .engine-tabs {
+        gap: 6px;
+      }
+
+      .engine-tab {
+        padding: 6px 10px;
+        min-height: 34px;
+        font-size: 0.9rem;
+      }
+
+      .bookmark-section {
+        padding: 10px;
+      }
+
+      .site-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .site-title {
+        font-size: 0.98rem;
+      }
+
+      .site-desc {
+        font-size: 0.82rem;
+      }
+
+      .footer {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      }
+
+    }
+
+    @media (any-hover: none) {
+      .site-card:hover,
+      .site-card.is-hover,
+      .site-card:hover .site-icon,
+      .site-card.is-hover .site-icon,
+      .hot-item:hover,
+      .search-btn:hover,
+      .engine-tab:hover,
+      .group-tab:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="top-center">
+          <span id="clock-main" class="clock-main">-- 月 -- 日 -- 时 -- 分 -- 秒</span>
+          <span class="top-sep"> </span>
+          <span id="region-main" class="region-main">定位中</span>
+          <span class="top-sep"> </span>
+          <span id="weather-main" class="weather-main">☁ 天气加载中</span>
+        </div>
+        <button id="theme-toggle" class="theme-switch" type="button" aria-label="切换主题" title="切换主题">
+          <span id="theme-toggle-icon" class="theme-switch-symbol" aria-hidden="true">☀</span>
+        </button>
+      </div>
+
+      <section class="search-shell">
+        <div id="engine-tabs" class="engine-tabs"></div>
+        <form id="search-form" class="search-form">
+          <div class="search-mark">
+            <i id="engine-icon" class="iconfont icon-baidu" aria-hidden="true"></i>
+            <span id="engine-icon-fallback" class="icon-fallback"></span>
+          </div>
+          <input id="search-input" class="search-input" type="search" autocomplete="off" placeholder="输入关键词后回车搜索">
+          <button class="search-btn" type="submit" aria-label="搜索"><i class="iconfont icon-md-search"></i></button>
+        </form>
+      </section>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="panel bookmarks">
+      <div class="section-head">
+        <h1 class="section-title"><span id="bookmark-title-text">自定义网站</span><i class="iconfont icon-md-attach" aria-hidden="true"></i></h1>
+      </div>
+
+      <div id="group-tabs" class="group-tabs"></div>
+      <div id="bookmark-sections" class="bookmark-sections"></div>
+    </section>
+
+    <aside class="panel hot-panel">
+      <div class="hot-head">
+        <div class="hot-source-wrap">
+          <select id="hot-source" class="hot-source-select" aria-label="选择热点来源"></select>
+          <i class="iconfont icon-md-arrow-dropdown hot-source-arrow" aria-hidden="true"></i>
+        </div>
+        <button id="reload-hot" class="hot-refresh" type="button" aria-label="刷新热点" title="刷新热点">
+          <i class="iconfont icon-md-sync" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p id="hot-status" class="hot-status"></p>
+      <ol id="hot-list" class="hot-list"></ol>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div>个人导航页 · Git-as-Database</div>
+    <div>书签数据来自 <a id="bookmark-source-link" href="#" target="_blank" rel="noopener noreferrer">--</a></div>
+  </footer>
+
+  <script>
+
+    let appConfig = {};
+    let searchEngines = [];
+    let hotSources = [];
+    let allGroups = [];
+    let activeGroupAnchor = "";
+    let activeEngineKey = "";
+    const STORAGE_KEYS = Object.freeze({
+      themeMode: "themeMode",
+      engineKey: "engineKey",
+      groupAnchor: "groupAnchor",
+      hotSource: "hotSource"
+    });
+    const THEME_STORAGE_KEY = STORAGE_KEYS.themeMode;
+    let activeThemeMode = "light";
+    let activeThemePreference = "auto";
+    let bookmarkLoadToken = 0;
+    let hotLoadToken = 0;
+    let hoveredSiteCard = null;
+    let bookmarkHoverTimer = 0;
+    let loadedConfigUrl = "";
+
+    function byId(id) {
+      return document.getElementById(id);
+    }
+
+    function readLocalStorage(key) {
+      try {
+        return String(localStorage.getItem(key) || "");
+      } catch {
+        return "";
+      }
+    }
+
+    function writeLocalStorage(key, value) {
+      try {
+        localStorage.setItem(key, String(value));
+      } catch {
+        // noop
+      }
+    }
+
+    function normalizeThemeMode(value) {
+      const mode = String(value || "").trim().toLowerCase();
+      return mode === "dark" || mode === "light" || mode === "auto" ? mode : "auto";
+    }
+
+    function resolveThemeMode(mode) {
+      if (mode === "auto") {
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      }
+      return mode === "dark" ? "dark" : "light";
+    }
+
+    function updateThemeToggleState() {
+      const button = byId("theme-toggle");
+      const icon = byId("theme-toggle-icon");
+      if (!button || !icon) return;
+
+      const isDark = activeThemeMode === "dark";
+      icon.textContent = isDark ? "☽" : "☀";
+
+      const nextLabel = isDark ? "切换到亮色模式" : "切换到暗色模式";
+      button.setAttribute("aria-label", nextLabel);
+      button.title = nextLabel;
+    }
+
+    function applyThemeMode(mode, persist = false) {
+      const normalized = normalizeThemeMode(mode);
+      activeThemePreference = normalized;
+      activeThemeMode = resolveThemeMode(normalized);
+      document.documentElement.setAttribute("theme-mode", activeThemeMode);
+      updateThemeToggleState();
+      if (persist) {
+        writeLocalStorage(THEME_STORAGE_KEY, normalized);
+      }
+    }
+
+    function initThemeToggle() {
+      const button = byId("theme-toggle");
+      if (!button) return;
+
+      if (button.dataset.boundThemeClick !== "1") {
+        button.dataset.boundThemeClick = "1";
+        button.addEventListener("click", () => {
+          const next = activeThemeMode === "dark" ? "light" : "dark";
+          applyThemeMode(next, true);
+        });
+      }
+
+      if (document.body.dataset.boundThemeMedia !== "1" && window.matchMedia) {
+        document.body.dataset.boundThemeMedia = "1";
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const syncBySystem = () => {
+          if (activeThemePreference === "auto") {
+            applyThemeMode("auto");
+          }
+        };
+        if (typeof media.addEventListener === "function") {
+          media.addEventListener("change", syncBySystem);
+        } else if (typeof media.addListener === "function") {
+          media.addListener(syncBySystem);
+        }
+      }
+    }
+
+    function isPlainObject(value) {
+      return Object.prototype.toString.call(value) === "[object Object]";
+    }
+
+    function assertConfigShape(config, sourceUrl) {
+      if (!isPlainObject(config)) {
+        throw new Error(`配置文件格式错误（${sourceUrl}）：根节点必须是对象`);
+      }
+
+      const requiredObjects = ["ui", "theme", "search", "bookmarks", "hot", "weather"];
+      requiredObjects.forEach((key) => {
+        if (!isPlainObject(config[key])) {
+          throw new Error(`配置文件缺少对象字段（${sourceUrl}）：${key}`);
+        }
+      });
+
+      if (!Array.isArray(config.search.engines)) {
+        throw new Error(`配置文件字段错误（${sourceUrl}）：search.engines 必须是数组`);
+      }
+
+      if (!Array.isArray(config.hot.sources)) {
+        throw new Error(`配置文件字段错误（${sourceUrl}）：hot.sources 必须是数组`);
+      }
+
+      const bookmarkSource = String(config.bookmarks.source || "").trim();
+      if (!bookmarkSource) {
+        throw new Error(`配置文件字段错误（${sourceUrl}）：bookmarks.source 不能为空`);
+      }
+
+      return config;
+    }
+
+    function appendCacheBuster(url) {
+      const raw = String(url || "").trim();
+      if (!raw) return "";
+      const joiner = raw.includes("?") ? "&" : "?";
+      return `${raw}${joiner}v=${Date.now()}`;
+    }
+
+    function normalizeSearchEngines(rawList) {
+      const list = Array.isArray(rawList) ? rawList : [];
+      return list
+        .filter((item) => item && item.enabled !== false && item.key && item.name)
+        .map((item) => {
+          const mode = item.mode === "site-local" ? "site-local" : "url";
+          return {
+            key: String(item.key),
+            name: String(item.name),
+            iconClass: String(item.iconClass || ""),
+            iconText: String(item.iconText || String(item.name).slice(0, 1)),
+            placeholder: String(item.placeholder || `在 ${item.name} 中搜索`),
+            mode,
+            url: String(item.url || ""),
+            queryKey: String(item.queryKey || "q"),
+            params: isPlainObject(item.params) ? item.params : {}
+          };
+        });
+    }
+
+    function normalizeHotSources(rawList) {
+      const list = Array.isArray(rawList) ? rawList : [];
+      return list
+        .filter((source) => source && source.enabled !== false && source.key && source.name)
+        .map((source) => {
+          const targets = Array.isArray(source.targets) ? source.targets : [];
+          const normalizedTargets = targets
+            .filter((target) => target && target.enabled !== false && target.url)
+            .map((target) => ({
+              kind: String(target.kind || "generic"),
+              url: String(target.url),
+              timeoutMs: Number(target.timeoutMs) || 7000
+            }));
+          return {
+            key: String(source.key),
+            name: String(source.name),
+            targets: normalizedTargets
+          };
+        })
+        .filter((source) => source.targets.length > 0);
+    }
+
+    function buildSearchUrl(engine, keyword) {
+      if (!engine || engine.mode === "site-local") return "";
+      const baseUrl = String(engine.url || "").trim();
+      if (!baseUrl) return "";
+
+      const queryKey = String(engine.queryKey || "q");
+      const params = new URLSearchParams();
+      params.set(queryKey, keyword);
+
+      const extraParams = isPlainObject(engine.params) ? engine.params : {};
+      Object.keys(extraParams).forEach((key) => {
+        const value = extraParams[key];
+        if (value === undefined || value === null || value === "") return;
+        params.set(key, String(value));
+      });
+
+      try {
+        const parsed = new URL(baseUrl, window.location.href);
+        params.forEach((value, key) => {
+          parsed.searchParams.set(key, value);
+        });
+        if (/^https?:$/i.test(parsed.protocol)) {
+          return parsed.toString();
+        }
+      } catch {
+        // noop
+      }
+      return "";
+    }
+
+    function buildWeatherUrl() {
+      const weather = isPlainObject(appConfig.weather) ? appConfig.weather : {};
+
+      const directUrl = String(weather.weatherApiUrl || weather.apiUrl || weather.url || "").trim();
+      if (directUrl) return directUrl;
+
+      const template = String(weather.weatherUrlTemplate || "").trim();
+      const lat = Number(weather.latitude ?? weather.lat);
+      const lon = Number(weather.longitude ?? weather.lon);
+      if (!template || !Number.isFinite(lat) || !Number.isFinite(lon)) return "";
+
+      return template
+        .replace(/\{lat\}/g, encodeURIComponent(String(lat)))
+        .replace(/\{lon\}/g, encodeURIComponent(String(lon)));
+    }
+
+    function getWeatherCityName() {
+      const weather = isPlainObject(appConfig.weather) ? appConfig.weather : {};
+      const val = String(weather.cityName || weather.city || "").trim();
+      return val || "未知地区";
+    }
+
+    function resolveConfigUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const custom = String(params.get("config") || "").trim();
+      return custom || "./config.yaml";
+    }
+
+    function resolveAbsoluteUrl(pathOrUrl, baseUrl = window.location.href) {
+      const raw = String(pathOrUrl || "").trim();
+      if (!raw) return "";
+      try {
+        return new URL(raw, baseUrl).toString();
+      } catch {
+        return raw;
+      }
+    }
+
+    function resolveConfigRelativeUrl(pathOrUrl) {
+      return resolveAbsoluteUrl(pathOrUrl, loadedConfigUrl || window.location.href);
+    }
+
+    function applyRuntimeConfig() {
+      searchEngines = normalizeSearchEngines(appConfig.search && appConfig.search.engines);
+      hotSources = normalizeHotSources(appConfig.hot && appConfig.hot.sources);
+
+      const wanted = String((appConfig.search && appConfig.search.defaultEngine) || "");
+      const firstEngine = searchEngines[0] ? searchEngines[0].key : "";
+      activeEngineKey = searchEngines.some((item) => item.key === wanted) ? wanted : firstEngine;
+    }
+
+    async function loadUserConfig() {
+      const configUrl = resolveConfigUrl();
+      loadedConfigUrl = resolveAbsoluteUrl(configUrl, window.location.href);
+      const configRequestUrl = loadedConfigUrl || configUrl;
+      const rawText = await fetchTextWithTimeout(
+        appendCacheBuster(configRequestUrl),
+        5000,
+        { cache: "no-store" }
+      );
+      const userConfig = parseConfigSource(rawText, configRequestUrl);
+      appConfig = assertConfigShape(userConfig, configRequestUrl);
+      applyRuntimeConfig();
+    }
+
+    function toggleNode(node, visible) {
+      if (!node) return;
+      node.classList.toggle("is-hidden", !visible);
+    }
+
+    function applyUiConfig() {
+      const ui = isPlainObject(appConfig.ui) ? appConfig.ui : {};
+      const theme = isPlainObject(appConfig.theme) ? appConfig.theme : {};
+      const heroImageLight = String(theme.heroImageLight || theme.heroImage || "").trim();
+      const heroImageDark = String(theme.heroImageDark || theme.heroImageNight || heroImageLight || "").trim();
+      if (heroImageLight) {
+        const escaped = heroImageLight.replace(/"/g, '\\"');
+        document.documentElement.style.setProperty("--hero-image-light", `url("${escaped}")`);
+      } else {
+        document.documentElement.style.setProperty("--hero-image-light", "none");
+      }
+      if (heroImageDark) {
+        const escaped = heroImageDark.replace(/"/g, '\\"');
+        document.documentElement.style.setProperty("--hero-image-dark", `url("${escaped}")`);
+      } else {
+        document.documentElement.style.setProperty("--hero-image-dark", "none");
+      }
+
+      const storedThemeRaw = readLocalStorage(THEME_STORAGE_KEY);
+      const hasStoredTheme = storedThemeRaw === "light" || storedThemeRaw === "dark" || storedThemeRaw === "auto";
+      const configuredThemeMode = normalizeThemeMode(theme.mode || ui.themeMode);
+      applyThemeMode(hasStoredTheme ? storedThemeRaw : configuredThemeMode);
+      initThemeToggle();
+      const themeToggleVisible = theme.enableToggle !== false;
+      toggleNode(byId("theme-toggle"), themeToggleVisible);
+
+      const title = String(ui.pageTitle || "").trim();
+      if (title) {
+        document.title = title;
+      }
+
+      const bookmarkTitle = String(ui.bookmarkTitle || "").trim();
+      if (bookmarkTitle) {
+        const bookmarkTitleNode = byId("bookmark-title-text");
+        if (bookmarkTitleNode) {
+          bookmarkTitleNode.textContent = bookmarkTitle;
+        }
+      }
+
+      const clockNode = byId("clock-main");
+      const regionNode = byId("region-main");
+      const weatherNode = byId("weather-main");
+      toggleNode(clockNode, ui.showClock !== false);
+      toggleNode(regionNode, ui.showRegion !== false);
+      toggleNode(weatherNode, ui.showWeather !== false);
+
+      const topVisibleCount = [clockNode, regionNode, weatherNode]
+        .filter((node) => node && !node.classList.contains("is-hidden"))
+        .length;
+      document.querySelectorAll(".top-sep").forEach((sep, index) => {
+        sep.classList.toggle("is-hidden", index >= topVisibleCount - 1);
+      });
+      toggleNode(document.querySelector(".hero-top"), topVisibleCount > 0 || themeToggleVisible);
+
+      const searchVisible = ui.showSearch !== false && searchEngines.length > 0;
+      const bookmarksVisible = ui.showBookmarks !== false;
+      const hotVisible = ui.showHotPanel !== false && hotSources.length > 0;
+      toggleNode(document.querySelector(".search-shell"), searchVisible);
+      toggleNode(document.querySelector(".bookmarks"), bookmarksVisible);
+      toggleNode(document.querySelector(".hot-panel"), hotVisible);
+
+      const main = document.querySelector(".main");
+      if (main) {
+        main.classList.toggle("single-column", !bookmarksVisible || !hotVisible);
+      }
+
+      const sourceLink = byId("bookmark-source-link");
+      const sourceAddress = String((appConfig.bookmarks && appConfig.bookmarks.source) || "").trim();
+      const sourceResolvedAddress = resolveConfigRelativeUrl(sourceAddress);
+      if (sourceLink) {
+        sourceLink.href = safeHttpUrl(sourceResolvedAddress);
+        sourceLink.textContent = sourceAddress;
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function safeHttpUrl(url) {
+      const raw = String(url || "").trim();
+      return /^https?:\/\//i.test(raw) ? raw : "#";
+    }
+
+    function normalizeTimeoutMs(raw, fallback = 5000) {
+      const parsed = Number(raw);
+      if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
+      return Math.max(200, Math.min(Math.round(parsed), 120000));
+    }
+
+    function formatYmd(date) {
+      const year = date.getFullYear();
+      const month = pad2(date.getMonth() + 1);
+      const day = pad2(date.getDate());
+      return `${year}-${month}-${day}`;
+    }
+
+    function resolveHotUrlTemplate(rawUrl) {
+      const url = String(rawUrl || "").trim();
+      if (!url) return "";
+
+      const now = new Date();
+      const today = formatYmd(now);
+      return url
+        .replace(/\{today\}/g, today)
+        .replace(/\{date-(\d+)\}/g, (_, daysText) => {
+          const days = Number(daysText);
+          const offset = Number.isFinite(days) && days >= 0 ? Math.floor(days) : 0;
+          const date = new Date(now.getTime() - offset * 24 * 60 * 60 * 1000);
+          return formatYmd(date);
+        });
+    }
+
+    function normalizeLinkUrl(rawUrl) {
+      const value = String(rawUrl || "").trim();
+      if (!value) return "";
+      if (/^https?:\/\//i.test(value)) return value;
+      if (/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}(?:[/:?#].*)?$/i.test(value)) {
+        return `https://${value}`;
+      }
+      return "";
+    }
+
+    function normalizeBookmarkData(raw) {
+      if (!raw) return [];
+      if (Array.isArray(raw)) return raw;
+      if (Array.isArray(raw.groups)) return raw.groups;
+      if (Array.isArray(raw.data)) return raw.data;
+      return [];
+    }
+
+    function normalizeBookmarkGroups(rawGroups) {
+      const groups = Array.isArray(rawGroups) ? rawGroups : [];
+      return groups.map((group, index) => {
+        const links = Array.isArray(group && group.links) ? group.links : [];
+        const seen = new Set();
+
+        const normalizedLinks = links.map((item) => {
+          const rawTitle = String((item && (item.title || item.name)) || "").trim();
+          const url = normalizeLinkUrl(item && item.url);
+          if (!url) return null;
+
+          const title = rawTitle || url;
+          const dedupeKey = `${title.toLowerCase()}|${url.toLowerCase()}`;
+          if (seen.has(dedupeKey)) return null;
+          seen.add(dedupeKey);
+
+          const desc = String((item && (item.desc || item.description)) || "").trim();
+          return { title, url, desc };
+        }).filter(Boolean);
+
+        const name = String((group && (group.name || group.group)) || "").trim() || `分组 ${index + 1}`;
+        return { name, links: normalizedLinks };
+      });
+    }
+
+    function splitYamlKeyValue(text) {
+      let quote = "";
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        if ((ch === "'" || ch === "\"") && (i === 0 || text[i - 1] !== "\\")) {
+          quote = quote === ch ? "" : (quote || ch);
+          continue;
+        }
+        if (!quote && ch === ":") {
+          return [text.slice(0, i), text.slice(i + 1)];
+        }
+      }
+      return [text, ""];
+    }
+
+    function stripYamlInlineComment(text) {
+      let quote = "";
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        if ((ch === "'" || ch === "\"") && (i === 0 || text[i - 1] !== "\\")) {
+          quote = quote === ch ? "" : (quote || ch);
+          continue;
+        }
+        if (!quote && ch === "#" && (i === 0 || /\s/.test(text[i - 1]))) {
+          return text.slice(0, i).trimEnd();
+        }
+      }
+      return text;
+    }
+
+    function parseYamlScalar(raw) {
+      const val = String(raw || "").trim();
+      if (!val) return "";
+
+      if ((val.startsWith("\"") && val.endsWith("\"")) || (val.startsWith("'") && val.endsWith("'"))) {
+        return val.slice(1, -1);
+      }
+
+      const lower = val.toLowerCase();
+      if (lower === "true") return true;
+      if (lower === "false") return false;
+      if (lower === "null" || val === "~") return null;
+      if (val === "[]") return [];
+      if (val === "{}") return {};
+      if (/^-?\d+(\.\d+)?$/.test(val)) return Number(val);
+      return val;
+    }
+
+    function getNextYamlMeaningfulLine(lines, startIndex) {
+      for (let i = startIndex; i < lines.length; i += 1) {
+        const normalizedLine = String(lines[i] || "").replace(/\t/g, "    ");
+        if (!normalizedLine.trim()) continue;
+        const cleanLine = stripYamlInlineComment(normalizedLine);
+        if (!cleanLine.trim()) continue;
+        return {
+          indent: cleanLine.match(/^ */)[0].length,
+          content: cleanLine.trim()
+        };
+      }
+      return null;
+    }
+
+    function parseYamlDocument(rawText) {
+      const text = String(rawText || "").replace(/^\uFEFF/, "");
+      const lines = text.split(/\r?\n/);
+      const firstLine = getNextYamlMeaningfulLine(lines, 0);
+      const rootValue = firstLine && firstLine.content.startsWith("- ") ? [] : {};
+      const stack = [{
+        type: Array.isArray(rootValue) ? "array" : "object",
+        value: rootValue,
+        indent: -1
+      }];
+
+      function inferNestedContainer(indent, lineIndex) {
+        const next = getNextYamlMeaningfulLine(lines, lineIndex + 1);
+        if (next && next.indent > indent && next.content.startsWith("- ")) {
+          return [];
+        }
+        return {};
+      }
+
+      for (let i = 0; i < lines.length; i += 1) {
+        const normalizedLine = String(lines[i] || "").replace(/\t/g, "    ");
+        if (!normalizedLine.trim()) continue;
+        const cleanLine = stripYamlInlineComment(normalizedLine);
+        if (!cleanLine.trim()) continue;
+
+        const indent = cleanLine.match(/^ */)[0].length;
+        const content = cleanLine.trim();
+
+        while (stack.length > 1 && indent <= stack[stack.length - 1].indent) {
+          stack.pop();
+        }
+        const frame = stack[stack.length - 1];
+        if (!frame) continue;
+
+        if (content.startsWith("- ")) {
+          if (frame.type !== "array") continue;
+
+          const rest = content.slice(2).trim();
+          if (!rest) {
+            const nested = inferNestedContainer(indent, i);
+            frame.value.push(nested);
+            if (nested && typeof nested === "object") {
+              stack.push({
+                type: Array.isArray(nested) ? "array" : "object",
+                value: nested,
+                indent
+              });
+            }
+            continue;
+          }
+
+          const [rawKey, rawValue] = splitYamlKeyValue(rest);
+          const key = String(rawKey || "").trim();
+          const hasKeyValue = key && rest.includes(":");
+          if (!hasKeyValue) {
+            frame.value.push(parseYamlScalar(rest));
+            continue;
+          }
+
+          const obj = {};
+          frame.value.push(obj);
+
+          const valueText = String(rawValue || "").trim();
+          if (!valueText) {
+            const nested = inferNestedContainer(indent, i);
+            obj[key] = nested;
+            stack.push({ type: "object", value: obj, indent });
+            if (nested && typeof nested === "object") {
+              stack.push({
+                type: Array.isArray(nested) ? "array" : "object",
+                value: nested,
+                indent: indent + 1
+              });
+            }
+            continue;
+          }
+
+          obj[key] = parseYamlScalar(rawValue);
+          stack.push({ type: "object", value: obj, indent });
+          continue;
+        }
+
+        const [rawKey, rawValue] = splitYamlKeyValue(content);
+        const key = String(rawKey || "").trim();
+        if (!key || !content.includes(":")) continue;
+        if (frame.type !== "object") continue;
+
+        const valueText = String(rawValue || "").trim();
+        if (!valueText) {
+          const nested = inferNestedContainer(indent, i);
+          frame.value[key] = nested;
+          if (nested && typeof nested === "object") {
+            stack.push({
+              type: Array.isArray(nested) ? "array" : "object",
+              value: nested,
+              indent
+            });
+          }
+          continue;
+        }
+
+        frame.value[key] = parseYamlScalar(rawValue);
+      }
+
+      return rootValue;
+    }
+
+    function parseBookmarkYaml(rawText) {
+      const parsed = parseYamlDocument(rawText);
+      if (Array.isArray(parsed)) {
+        return { groups: parsed };
+      }
+      if (isPlainObject(parsed) && Array.isArray(parsed.groups)) {
+        return { groups: parsed.groups };
+      }
+      if (isPlainObject(parsed) && Array.isArray(parsed.data)) {
+        return { groups: parsed.data };
+      }
+      return { groups: [] };
+    }
+
+    function parseBookmarkSource(rawText, sourceUrl) {
+      const text = String(rawText || "").replace(/^\uFEFF/, "").trim();
+      if (!text) return { groups: [] };
+
+      const lowerSource = String(sourceUrl || "").trim().toLowerCase();
+      if (/\.json(?:[?#]|$)/i.test(lowerSource)) {
+        throw new Error("书签文件仅支持 YAML (.yaml/.yml)");
+      }
+      if (text.startsWith("{") || text.startsWith("[")) {
+        throw new Error("书签内容仅支持 YAML 格式");
+      }
+
+      return parseBookmarkYaml(text);
+    }
+
+    function parseConfigSource(rawText, sourceUrl) {
+      const text = String(rawText || "").replace(/^\uFEFF/, "").trim();
+      if (!text) {
+        throw new Error("配置文件内容为空");
+      }
+
+      const lowerSource = String(sourceUrl || "").trim().toLowerCase();
+      if (/\.json(?:[?#]|$)/i.test(lowerSource)) {
+        throw new Error("配置文件仅支持 YAML (.yaml/.yml)");
+      }
+      if (text.startsWith("{") || text.startsWith("[")) {
+        throw new Error("配置内容仅支持 YAML 格式");
+      }
+
+      const ensureObject = (value) => {
+        if (!isPlainObject(value)) {
+          throw new Error("配置文件必须是对象结构");
+        }
+        return value;
+      };
+      return ensureObject(parseYamlDocument(text));
+    }
+
+    function normalizeHotData(raw) {
+      if (!raw) return [];
+      if (Array.isArray(raw)) return raw;
+      if (Array.isArray(raw.data)) return raw.data;
+      if (Array.isArray(raw.list)) return raw.list;
+      if (Array.isArray(raw.news)) return raw.news;
+      return [];
+    }
+
+    function parseHotPayload(kind, payload) {
+      if (kind === "zhihu") {
+        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
+        return rows.map((item) => {
+          const target = item && item.target ? item.target : {};
+          return {
+            title: target.title || item.title || "",
+            url: target.id ? `https://www.zhihu.com/question/${target.id}` : (target.url || item.url || ""),
+            hot: item.detail_text || ""
+          };
+        });
+      }
+
+      if (kind === "toutiao") {
+        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
+        return rows.map((item) => ({
+          title: item.Title || item.QueryWord || item.title || "",
+          url: item.Url || item.url || "",
+          hot: item.HotValue || item.hot || ""
+        }));
+      }
+
+      if (kind === "juejin") {
+        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
+        return rows.map((item) => {
+          const content = item && item.content ? item.content : {};
+          const counter = item && item.content_counter ? item.content_counter : {};
+          const contentId = String(content.content_id || item.content_id || "");
+          return {
+            title: content.title || item.title || "",
+            url: contentId ? `https://juejin.cn/post/${contentId}` : "",
+            hot: counter.hot_rank || counter.view || counter.interact_count || ""
+          };
+        });
+      }
+
+      if (kind === "v2ex") {
+        const rows = Array.isArray(payload) ? payload : [];
+        return rows.map((item) => ({
+          title: item.title || "",
+          url: item.url || "",
+          hot: item.replies || ""
+        }));
+      }
+
+      if (kind === "thepaper") {
+        const rows = Array.isArray(payload && payload.data && payload.data.hotNews) ? payload.data.hotNews : [];
+        return rows.map((item) => {
+          const contId = String(item.contId || item.cont_id || "");
+          const url = contId ? `https://www.thepaper.cn/newsDetail_forward_${contId}` : "";
+          return {
+            title: item.name || item.title || "",
+            url,
+            hot: item.interactionNum || item.praiseTimes || ""
+          };
+        });
+      }
+
+      if (kind === "github") {
+        const rows = Array.isArray(payload && payload.items) ? payload.items : [];
+        return rows.map((item) => ({
+          title: item.full_name || item.name || "",
+          url: item.html_url || "",
+          hot: item.stargazers_count || item.watchers_count || ""
+        }));
+      }
+
+      if (kind === "stackoverflow") {
+        const rows = Array.isArray(payload && payload.items) ? payload.items : [];
+        return rows.map((item) => ({
+          title: item.title || "",
+          url: item.link || "",
+          hot: item.score || item.answer_count || ""
+        }));
+      }
+
+      if (kind === "hackernews") {
+        const rows = Array.isArray(payload && payload.hits) ? payload.hits : [];
+        return rows.map((item) => ({
+          title: item.title || item.story_title || "",
+          url: item.url || (item.objectID ? `https://news.ycombinator.com/item?id=${item.objectID}` : ""),
+          hot: item.points || item.num_comments || ""
+        }));
+      }
+
+      return normalizeHotData(payload);
+    }
+
+    function firstChar(text) {
+      const val = String(text || "").trim();
+      return val ? escapeHtml(val.charAt(0).toUpperCase()) : "·";
+    }
+
+    function pad2(num) {
+      return num < 10 ? `0${num}` : String(num);
+    }
+
+    function getActiveEngine() {
+      if (!searchEngines.length) return null;
+      return searchEngines.find((item) => item.key === activeEngineKey) || searchEngines[0] || null;
+    }
+
+    function weatherTextByCode(code) {
+      const group = {
+        0: "晴",
+        1: "晴间多云",
+        2: "多云",
+        3: "阴",
+        45: "雾",
+        48: "雾",
+        51: "毛毛雨",
+        53: "小雨",
+        55: "小雨",
+        56: "冻雨",
+        57: "冻雨",
+        61: "小雨",
+        63: "中雨",
+        65: "大雨",
+        66: "冻雨",
+        67: "冻雨",
+        71: "小雪",
+        73: "中雪",
+        75: "大雪",
+        77: "雪粒",
+        80: "阵雨",
+        81: "阵雨",
+        82: "暴雨",
+        85: "阵雪",
+        86: "阵雪",
+        95: "雷雨",
+        96: "雷雨冰雹",
+        99: "雷雨冰雹"
+      };
+      return group[code] || "天气";
+    }
+
+    async function fetchJsonWithTimeout(url, timeoutMs = 5000, requestOptions = {}) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), normalizeTimeoutMs(timeoutMs, 5000));
+      try {
+        const response = await fetch(url, Object.assign({}, requestOptions, { signal: controller.signal }));
+        if (!response.ok) {
+          throw new Error(`请求失败: ${response.status}`);
+        }
+        return await response.json();
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function fetchTextWithTimeout(url, timeoutMs = 5000, requestOptions = {}) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), normalizeTimeoutMs(timeoutMs, 5000));
+      try {
+        const response = await fetch(url, Object.assign({}, requestOptions, { signal: controller.signal }));
+        if (!response.ok) {
+          throw new Error(`请求失败: ${response.status}`);
+        }
+        return await response.text();
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function updateTopClock() {
+      const now = new Date();
+      const dateLabel = `${pad2(now.getMonth() + 1)} 月 ${pad2(now.getDate())} 日`;
+      const timeLabel = `${pad2(now.getHours())} 时 ${pad2(now.getMinutes())} 分 ${pad2(now.getSeconds())} 秒`;
+      byId("clock-main").textContent = `${dateLabel} ${timeLabel}`;
+    }
+
+    async function loadRegionAndWeather() {
+      const regionNode = byId("region-main");
+      const weatherNode = byId("weather-main");
+      const ui = isPlainObject(appConfig.ui) ? appConfig.ui : {};
+      const weather = isPlainObject(appConfig.weather) ? appConfig.weather : {};
+      const showRegion = ui.showRegion !== false;
+      const showWeather = ui.showWeather !== false;
+      if (!showRegion && !showWeather) return;
+
+      const cityName = getWeatherCityName();
+      if (showRegion && regionNode) {
+        regionNode.textContent = cityName;
+      }
+      if (showWeather && weatherNode) {
+        weatherNode.textContent = "☁ 天气加载中";
+      }
+
+      try {
+        if (!showWeather || !weatherNode) return;
+
+        const weatherUrl = buildWeatherUrl();
+        if (!weatherUrl) {
+          weatherNode.textContent = "☁ 天气未知";
+          return;
+        }
+
+        const weatherTimeout = normalizeTimeoutMs(
+          weather.weatherRequestTimeoutMs,
+          4500
+        );
+        const weatherPayload = await fetchJsonWithTimeout(weatherUrl, weatherTimeout);
+        const current = weatherPayload && (
+          weatherPayload.current ||
+          weatherPayload.current_weather ||
+          (weatherPayload.data && (weatherPayload.data.current || weatherPayload.data.current_weather))
+        );
+        if (!current) {
+          weatherNode.textContent = "☁ 天气未知";
+          return;
+        }
+
+        const weatherCode = Number(current.weather_code ?? current.weathercode ?? current.weatherCode);
+        const desc = weatherTextByCode(weatherCode);
+        const tempValue = Number(current.temperature_2m ?? current.temperature ?? current.temp);
+        const temp = Number.isFinite(tempValue) ? Math.round(tempValue) : null;
+        weatherNode.textContent = temp === null ? `☁ ${desc}` : `☁ ${desc} ${temp}°C`;
+      } catch (error) {
+        console.warn(error);
+        if (showWeather && weatherNode) {
+          weatherNode.textContent = "☁ 天气未知";
+        }
+      }
+    }
+
+    function findSiteMatches(keyword) {
+      const target = keyword.trim().toLowerCase();
+      if (!target) return [];
+      const result = [];
+      allGroups.forEach((group) => {
+        if (!group || !Array.isArray(group.links)) return;
+        group.links.forEach((item) => {
+          const title = String(item.title || item.name || "");
+          const desc = String(item.desc || item.description || "");
+          const url = normalizeLinkUrl(item.url);
+          if (!url) return;
+          const text = `${title} ${desc} ${url}`.toLowerCase();
+          if (text.includes(target)) {
+            result.push({ title, url });
+          }
+        });
+      });
+      return result;
+    }
+
+    function getGroupAnchor(index) {
+      return `bookmark-section-${index}`;
+    }
+
+    function setActiveGroupAnchor(anchor) {
+      activeGroupAnchor = anchor;
+      const tabs = byId("group-tabs");
+      if (!tabs) return;
+      tabs.querySelectorAll("button[data-group-anchor]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.groupAnchor === anchor);
+      });
+    }
+
+    function clearBookmarkHoverState() {
+      if (bookmarkHoverTimer) {
+        clearTimeout(bookmarkHoverTimer);
+        bookmarkHoverTimer = 0;
+      }
+      if (hoveredSiteCard && hoveredSiteCard.classList) {
+        hoveredSiteCard.classList.remove("is-hover");
+      }
+      hoveredSiteCard = null;
+    }
+
+    function activateBookmarkHover(card) {
+      if (!card || card === hoveredSiteCard) return;
+      if (hoveredSiteCard && hoveredSiteCard.classList) {
+        hoveredSiteCard.classList.remove("is-hover");
+      }
+      hoveredSiteCard = card;
+      hoveredSiteCard.classList.add("is-hover");
+    }
+
+    function initBookmarkHoverInteractions() {
+      const container = byId("bookmark-sections");
+      if (!container) return;
+
+      const canHover = !!(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+      if (!canHover) {
+        clearBookmarkHoverState();
+        return;
+      }
+
+      if (container.dataset.boundBookmarkHover === "1") return;
+      container.dataset.boundBookmarkHover = "1";
+
+      container.addEventListener("pointerover", (event) => {
+        const target = event.target;
+        const card = target && target.closest ? target.closest(".site-card") : null;
+        if (!card || !container.contains(card)) return;
+
+        const from = event.relatedTarget;
+        if (from && card.contains(from)) return;
+
+        if (bookmarkHoverTimer) {
+          clearTimeout(bookmarkHoverTimer);
+        }
+        bookmarkHoverTimer = setTimeout(() => {
+          bookmarkHoverTimer = 0;
+          activateBookmarkHover(card);
+        }, 40);
+      });
+
+      container.addEventListener("pointerleave", () => {
+        clearBookmarkHoverState();
+      });
+    }
+
+    function applyBookmarkFilters(groups) {
+      const bookmarks = isPlainObject(appConfig.bookmarks) ? appConfig.bookmarks : {};
+      let filtered = Array.isArray(groups) ? groups.slice() : [];
+
+      const visible = Array.isArray(bookmarks.visibleGroups)
+        ? bookmarks.visibleGroups.map((name) => String(name).trim()).filter(Boolean)
+        : [];
+      if (visible.length) {
+        const visibleSet = new Set(visible);
+        filtered = filtered.filter((group) => visibleSet.has(String(group.name || group.group || "").trim()));
+      }
+
+      const exclude = Array.isArray(bookmarks.excludeGroups)
+        ? bookmarks.excludeGroups.map((name) => String(name).trim()).filter(Boolean)
+        : [];
+      if (exclude.length) {
+        const excludeSet = new Set(exclude);
+        filtered = filtered.filter((group) => !excludeSet.has(String(group.name || group.group || "").trim()));
+      }
+
+      const maxLinks = Number(bookmarks.maxLinksPerGroup);
+      if (Number.isFinite(maxLinks) && maxLinks > 0) {
+        filtered = filtered.map((group) => {
+          const links = Array.isArray(group.links) ? group.links.slice(0, maxLinks) : [];
+          return Object.assign({}, group, { links });
+        });
+      }
+
+      return filtered;
+    }
+
+    function renderEngineTabs() {
+      const wrapper = byId("engine-tabs");
+      if (!wrapper) return;
+      if (!searchEngines.length) {
+        wrapper.innerHTML = "";
+        return;
+      }
+
+      const html = searchEngines.map((engine) => {
+        const isActive = engine.key === activeEngineKey;
+        const cls = isActive ? "engine-tab active" : "engine-tab";
+        return `<button class="${cls}" type="button" data-engine="${escapeHtml(engine.key)}">${escapeHtml(engine.name)}</button>`;
+      }).join("");
+      wrapper.innerHTML = html;
+
+      wrapper.querySelectorAll("button[data-engine]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeEngineKey = btn.dataset.engine || activeEngineKey || (searchEngines[0] ? searchEngines[0].key : "");
+          writeLocalStorage(STORAGE_KEYS.engineKey, activeEngineKey);
+          renderEngineTabs();
+          updateSearchInputState();
+          const input = byId("search-input");
+          if (input) input.focus();
+        });
+      });
+    }
+
+    function updateSearchInputState() {
+      const input = byId("search-input");
+      const icon = byId("engine-icon");
+      const fallback = byId("engine-icon-fallback");
+      const engine = getActiveEngine();
+      if (!input || !icon || !fallback) return;
+
+      if (!engine) {
+        input.placeholder = "未配置可用搜索引擎";
+        fallback.textContent = "无";
+        fallback.style.display = "inline";
+        icon.style.display = "none";
+        return;
+      }
+
+      const fallbackText = engine.iconText || engine.name.slice(0, 1);
+      const iconClass = String(engine.iconClass || "").trim();
+
+      input.placeholder = engine.placeholder || `在 ${engine.name} 中搜索`;
+      if (!iconClass) {
+        fallback.textContent = fallbackText;
+        fallback.style.display = "inline";
+        icon.style.display = "none";
+        return;
+      }
+
+      icon.className = iconClass;
+      fallback.style.display = "none";
+      icon.style.display = "inline-block";
+    }
+
+    function initSearch() {
+      if (!searchEngines.length) return;
+
+      const stored = readLocalStorage(STORAGE_KEYS.engineKey);
+      if (stored && searchEngines.some((item) => item.key === stored)) {
+        activeEngineKey = stored;
+      } else if (!activeEngineKey) {
+        activeEngineKey = searchEngines[0].key;
+      }
+
+      renderEngineTabs();
+      updateSearchInputState();
+
+      const form = byId("search-form");
+      if (form && form.dataset.boundSubmit !== "1") {
+        form.dataset.boundSubmit = "1";
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const input = byId("search-input");
+          if (!input) return;
+          const keyword = input.value.trim();
+          if (!keyword) {
+            input.focus();
+            return;
+          }
+
+          const engine = getActiveEngine();
+          if (!engine) return;
+
+          if (engine.mode === "site-local") {
+            const matches = findSiteMatches(keyword);
+            if (!matches.length) {
+              input.value = "";
+              input.placeholder = "站内无匹配站点，请换个关键词";
+              setTimeout(updateSearchInputState, 1200);
+              return;
+            }
+            window.open(matches[0].url, "_blank", "noopener,noreferrer");
+            return;
+          }
+
+          const url = buildSearchUrl(engine, keyword);
+          if (url) {
+            window.open(url, "_blank", "noopener,noreferrer");
+          }
+        });
+      }
+
+      if (document.body.dataset.boundSearchShortcut !== "1") {
+        document.body.dataset.boundSearchShortcut = "1";
+        document.addEventListener("keydown", (event) => {
+          if (event.ctrlKey || event.metaKey || event.altKey) return;
+          const isSlash = event.key === "/" || event.code === "NumpadDivide";
+          if (!isSlash) return;
+          const target = event.target;
+          const tag = target && target.tagName ? target.tagName.toLowerCase() : "";
+          const isEditable = target && (target.isContentEditable || tag === "input" || tag === "textarea");
+          if (isEditable) return;
+          event.preventDefault();
+          const input = byId("search-input");
+          if (!input) return;
+          input.focus();
+        });
+      }
+    }
+
+    function renderGroupTabs() {
+      const wrapper = byId("group-tabs");
+      if (!allGroups.length) {
+        wrapper.innerHTML = "";
+        return;
+      }
+
+      wrapper.innerHTML = allGroups.map((group, index) => {
+        const name = escapeHtml(String(group.name || group.group || `分组 ${index + 1}`));
+        const anchor = getGroupAnchor(index);
+        const cls = anchor === activeGroupAnchor ? "group-tab active" : "group-tab";
+        return `<button class="${cls}" type="button" data-group-anchor="${anchor}">${name}</button>`;
+      }).join("");
+
+      wrapper.querySelectorAll("button[data-group-anchor]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const anchor = button.dataset.groupAnchor || "";
+          if (!anchor) return;
+          writeLocalStorage(STORAGE_KEYS.groupAnchor, anchor);
+          setActiveGroupAnchor(anchor);
+          const section = byId(anchor);
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    }
+
+    function renderBookmarks() {
+      const container = byId("bookmark-sections");
+      if (!allGroups.length) {
+        container.innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
+        return;
+      }
+
+      const sourceHint = escapeHtml(String((appConfig.bookmarks && appConfig.bookmarks.source) || "").trim());
+
+      container.innerHTML = allGroups.map((group, index) => {
+        const groupName = escapeHtml(String(group.name || group.group || `分组 ${index + 1}`));
+        const links = Array.isArray(group.links) ? group.links : [];
+        const anchor = getGroupAnchor(index);
+
+        const cards = links.map((item) => {
+          const title = String(item.title || item.name || "未命名");
+          const url = safeHttpUrl(item.url);
+          const desc = String(item.desc || item.description || "点击访问");
+          return `
+            <a class="site-card" data-group-anchor="${anchor}" href="${url}" target="_blank" rel="noopener noreferrer">
+              <span class="site-icon">${firstChar(title)}</span>
+              <span>
+                <span class="site-title">${escapeHtml(title)}</span>
+                <span class="site-desc">${escapeHtml(desc)}</span>
+              </span>
+            </a>
+          `;
+        }).join("");
+
+        const body = cards
+          ? `<div class="site-grid">${cards}</div>`
+          : `<div class="empty">当前分组暂无书签，你可以在 ${sourceHint} 里新增 links。</div>`;
+        return `
+          <section class="bookmark-section" id="${anchor}">
+            <h2 class="bookmark-section-head"><i class="iconfont icon-tag" aria-hidden="true"></i><span>${groupName}</span></h2>
+            ${body}
+          </section>
+        `;
+      }).join("");
+    }
+
+    async function loadBookmarks() {
+      const currentToken = ++bookmarkLoadToken;
+      const bookmarks = isPlainObject(appConfig.bookmarks) ? appConfig.bookmarks : {};
+      const sourcePath = String(bookmarks.source || "").trim();
+      const sourceUrl = resolveConfigRelativeUrl(sourcePath);
+      try {
+        const requestTimeoutMs = normalizeTimeoutMs(bookmarks.requestTimeoutMs, 5000);
+        const rawText = await fetchTextWithTimeout(
+          appendCacheBuster(sourceUrl),
+          requestTimeoutMs,
+          { cache: "no-store" }
+        );
+        if (currentToken !== bookmarkLoadToken) return;
+        const parsed = parseBookmarkSource(rawText, sourceUrl);
+        const normalizedGroups = normalizeBookmarkGroups(normalizeBookmarkData(parsed));
+        allGroups = applyBookmarkFilters(normalizedGroups);
+      } catch (error) {
+        console.warn(error);
+        allGroups = [];
+      }
+
+      if (currentToken !== bookmarkLoadToken) return;
+
+      if (!allGroups.length) {
+        clearBookmarkHoverState();
+        byId("bookmark-sections").innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
+        byId("group-tabs").innerHTML = "";
+        return;
+      }
+
+      renderBookmarks();
+      const storedAnchor = readLocalStorage(STORAGE_KEYS.groupAnchor);
+      const fallbackAnchor = getGroupAnchor(0);
+      activeGroupAnchor = storedAnchor && byId(storedAnchor) ? storedAnchor : fallbackAnchor;
+      renderGroupTabs();
+      setActiveGroupAnchor(activeGroupAnchor);
+      initBookmarkHoverInteractions();
+    }
+
+    function toHotItem(item, index) {
+      const nestedTarget = item && item.target ? item.target : {};
+      const title = String(
+        item.title ||
+        item.name ||
+        item.word ||
+        item.keyword ||
+        item.hotword ||
+        item.QueryWord ||
+        item.Title ||
+        nestedTarget.title ||
+        "未命名话题"
+      );
+
+      const rawUrl = String(
+        item.url ||
+        item.link ||
+        item.href ||
+        item.Url ||
+        nestedTarget.url ||
+        ""
+      );
+
+      let url = normalizeLinkUrl(rawUrl);
+      if (!url && nestedTarget.id) {
+        url = `https://www.zhihu.com/question/${nestedTarget.id}`;
+      }
+      if (/^https:\/\/api\.zhihu\.com\/questions\/(\d+)/i.test(url)) {
+        url = url.replace(/^https:\/\/api\.zhihu\.com\/questions\/(\d+).*$/i, "https://www.zhihu.com/question/$1");
+      }
+      url = normalizeLinkUrl(url);
+
+      const score =
+        item.hot ||
+        item.score ||
+        item.heat ||
+        item.num ||
+        item.HotValue ||
+        item.replies ||
+        item.comment_count ||
+        item.interactionNum ||
+        item.praiseTimes ||
+        item.stargazers_count ||
+        item.watchers_count ||
+        item.points ||
+        item.num_comments ||
+        item.answer_count ||
+        item.detail_text ||
+        "";
+
+      return {
+        rank: index + 1,
+        title,
+        url,
+        score: score ? String(score) : ""
+      };
+    }
+
+    function normalizeHotItems(rawItems) {
+      const items = Array.isArray(rawItems) ? rawItems : [];
+      const seen = new Set();
+      const normalized = [];
+
+      items.forEach((item) => {
+        const parsed = toHotItem(item, normalized.length);
+        const title = String(parsed.title || "").trim();
+        if (!title) return;
+
+        const url = normalizeLinkUrl(parsed.url);
+        const key = `${title.toLowerCase()}|${url.toLowerCase()}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+
+        normalized.push({
+          rank: normalized.length + 1,
+          title,
+          url,
+          score: String(parsed.score || "").trim()
+        });
+      });
+
+      return normalized;
+    }
+
+    function renderHotSources() {
+      const select = byId("hot-source");
+      if (!select) return;
+      if (!hotSources.length) {
+        select.innerHTML = "";
+        return;
+      }
+
+      select.innerHTML = hotSources.map((source) => {
+        return `<option value="${escapeHtml(source.key)}">${escapeHtml(source.name)}</option>`;
+      }).join("");
+
+      const configDefault = String((appConfig.hot && appConfig.hot.defaultSource) || "");
+      const stored = readLocalStorage(STORAGE_KEYS.hotSource);
+      if (stored && hotSources.some((item) => item.key === stored)) {
+        select.value = stored;
+      } else if (configDefault && hotSources.some((item) => item.key === configDefault)) {
+        select.value = configDefault;
+      } else if (hotSources[0]) {
+        select.value = hotSources[0].key;
+      }
+    }
+
+    function renderHotList(items) {
+      const list = byId("hot-list");
+
+      if (!items.length) {
+        list.innerHTML = `<li class="empty">暂无热点数据，可切换来源后重试。</li>`;
+        return;
+      }
+
+      const maxItems = Math.max(1, Number((appConfig.hot && appConfig.hot.maxItems) || 10) || 10);
+      list.innerHTML = items.slice(0, maxItems).map((item) => {
+        const rankClass = item.rank <= 3 ? "rank top3" : "rank";
+        const meta = item.score ? `<span class="hot-meta">热度 ${escapeHtml(item.score)}</span>` : "";
+        const body = `
+          <span class="${rankClass}">${item.rank}</span>
+          <span class="hot-name">${escapeHtml(item.title)}${meta}</span>
+        `;
+        if (!item.url) {
+          return `
+            <li>
+              <span class="hot-item hot-item-static">
+                ${body}
+              </span>
+            </li>
+          `;
+        }
+
+        return `
+          <li>
+            <a class="hot-item" href="${safeHttpUrl(item.url)}" target="_blank" rel="noopener noreferrer">
+              ${body}
+            </a>
+          </li>
+        `;
+      }).join("");
+    }
+
+    async function loadHotList() {
+      const sourceSelect = byId("hot-source");
+      const status = byId("hot-status");
+      const reload = byId("reload-hot");
+      const currentToken = ++hotLoadToken;
+      if (!sourceSelect || !status) return;
+
+      sourceSelect.disabled = true;
+      if (reload) reload.disabled = true;
+
+      if (!hotSources.length) {
+        renderHotList([]);
+        status.textContent = "未配置热点源";
+        status.classList.add("error");
+        sourceSelect.disabled = false;
+        if (reload) reload.disabled = false;
+        return;
+      }
+
+      const preferred = hotSources.find((item) => item.key === sourceSelect.value) || hotSources[0];
+      const queue = [preferred].concat(hotSources.filter((item) => item.key !== preferred.key));
+
+      status.classList.remove("error");
+      let parsedList = [];
+      let usedSource = null;
+      let lastError = null;
+
+      try {
+        for (const source of queue) {
+          if (currentToken !== hotLoadToken) return;
+          status.textContent = `正在加载 ${source.name}`;
+          const targets = Array.isArray(source.targets) ? source.targets : [];
+
+          for (const target of targets) {
+            try {
+              const json = await fetchJsonWithTimeout(
+                resolveHotUrlTemplate(target.url),
+                normalizeTimeoutMs(target.timeoutMs, 7000),
+                { cache: "no-store" }
+              );
+              if (currentToken !== hotLoadToken) return;
+              const items = normalizeHotItems(parseHotPayload(target.kind, json));
+              if (items.length) {
+                parsedList = items;
+                usedSource = source;
+                break;
+              }
+            } catch (error) {
+              lastError = error;
+            }
+          }
+
+          if (parsedList.length) break;
+        }
+
+        if (currentToken !== hotLoadToken) return;
+
+        if (!parsedList.length || !usedSource) {
+          throw lastError || new Error("热点源均不可用");
+        }
+
+        renderHotList(parsedList);
+        if (usedSource.key !== preferred.key) {
+          sourceSelect.value = usedSource.key;
+          writeLocalStorage(STORAGE_KEYS.hotSource, usedSource.key);
+          status.textContent = `${preferred.name} 不可用，已切换到 ${usedSource.name}`;
+        } else {
+          status.textContent = "";
+        }
+      } catch (error) {
+        if (currentToken !== hotLoadToken) return;
+        console.warn(error);
+        renderHotList([]);
+        status.textContent = "热点加载失败，请稍后重试";
+        status.classList.add("error");
+      } finally {
+        if (currentToken === hotLoadToken) {
+          sourceSelect.disabled = false;
+          if (reload) reload.disabled = false;
+        }
+      }
+    }
+
+    function initHot() {
+      if (!hotSources.length) return;
+      renderHotSources();
+      const select = byId("hot-source");
+      const reload = byId("reload-hot");
+      if (!select || !reload) return;
+
+      if (select.dataset.boundChange !== "1") {
+        select.dataset.boundChange = "1";
+        select.addEventListener("change", () => {
+          writeLocalStorage(STORAGE_KEYS.hotSource, select.value);
+          loadHotList();
+        });
+      }
+
+      if (reload.dataset.boundReload !== "1") {
+        reload.dataset.boundReload = "1";
+        reload.addEventListener("click", loadHotList);
+      }
+      loadHotList();
+    }
+
+    async function bootstrap() {
+      try {
+        await loadUserConfig();
+      } catch (error) {
+        console.error(error);
+        const message = `配置加载失败：${error && error.message ? error.message : "未知错误"}`;
+        const bookmarkContainer = byId("bookmark-sections");
+        const status = byId("hot-status");
+        if (bookmarkContainer) {
+          bookmarkContainer.innerHTML = `<div class="empty">${escapeHtml(message)}</div>`;
+        }
+        if (status) {
+          status.textContent = message;
+          status.classList.add("error");
+        }
+        return;
+      }
+      applyUiConfig();
+
+      updateTopClock();
+      setInterval(updateTopClock, 1000);
+
+      const ui = isPlainObject(appConfig.ui) ? appConfig.ui : {};
+      const needsBookmarkData = ui.showBookmarks !== false || (ui.showSearch !== false && searchEngines.some((engine) => engine.mode === "site-local"));
+      if (needsBookmarkData) {
+        await loadBookmarks();
+      }
+
+      if (ui.showSearch !== false && searchEngines.length > 0) {
+        initSearch();
+      }
+
+      if (ui.showHotPanel !== false && hotSources.length > 0) {
+        initHot();
+      }
+
+      if (ui.showRegion !== false || ui.showWeather !== false) {
+        loadRegionAndWeather();
+      }
+    }
+
+    bootstrap();
+  </script>
+</body>
+</html>
