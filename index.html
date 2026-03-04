@@ -231,6 +231,16 @@
       display: inline-block;
     }
 
+    .github-link {
+      text-decoration: none;
+    }
+
+    .github-link .iconfont {
+      font-size: 22px;
+      line-height: 1;
+      display: inline-block;
+    }
+
     .theme-switch:hover {
       background: transparent;
       color: var(--gray-0);
@@ -1410,6 +1420,9 @@
           <span class="top-sep"> </span>
           <span id="weather-main" class="weather-main">☁ 天气加载中</span>
         </div>
+        <a id="github-link" class="theme-switch github-link is-hidden" href="#" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub" title="打开 GitHub">
+          <i class="iconfont icon-github" aria-hidden="true"></i>
+        </a>
         <button id="theme-toggle" class="theme-switch" type="button" aria-label="切换主题" title="切换主题">
           <span id="theme-toggle-icon" class="theme-switch-symbol" aria-hidden="true">☀</span>
         </button>
@@ -1791,6 +1804,17 @@
       initThemeToggle();
       const themeToggleVisible = theme.enableToggle !== false;
       toggleNode(byId("theme-toggle"), themeToggleVisible);
+      const githubLinkNode = byId("github-link");
+      const githubUrl = normalizeLinkUrl(ui.githubUrl || ui.github || "");
+      const githubVisible = !!githubUrl;
+      if (githubLinkNode) {
+        if (githubVisible) {
+          githubLinkNode.setAttribute("href", githubUrl);
+        } else {
+          githubLinkNode.removeAttribute("href");
+        }
+      }
+      toggleNode(githubLinkNode, githubVisible);
 
       const title = String(ui.pageTitle || "").trim();
       if (title) {
@@ -1819,7 +1843,7 @@
       document.querySelectorAll(".top-sep").forEach((sep, index) => {
         sep.classList.toggle("is-hidden", index >= topVisibleCount - 1);
       });
-      toggleNode(document.querySelector(".hero-top"), topVisibleCount > 0 || themeToggleVisible);
+      toggleNode(document.querySelector(".hero-top"), topVisibleCount > 0 || themeToggleVisible || githubVisible);
 
       const searchVisible = ui.showSearch !== false && searchEngines.length > 0;
       const bookmarksVisible = ui.showBookmarks !== false;

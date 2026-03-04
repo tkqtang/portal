@@ -2,6 +2,7 @@ ui:
   pageTitle: "tkqtang Portal"
   bookmarkTitle: "自定义"
   favicon: "./assets/favicon.png"
+  githubUrl: "https://github.com/tkqtang/portal"
   showClock: true
   showRegion: true
   showWeather: true

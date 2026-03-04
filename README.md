@@ -58,6 +58,7 @@ groups:
 
 - `ui.showSearch/showBookmarks/showHotPanel/showClock/showRegion/showWeather`
 - `ui.favicon`（例如 `./assets/favicon.png`）
+- `ui.githubUrl`（例如 `https://github.com/yourname/yourrepo`，设置后会在主题切换旁显示 GitHub 图标）
 - `search.defaultEngine`
 - `search.engines[]`（`enabled/url/queryKey/params/mode`）
 - `bookmarks.source`（建议 `./links.yaml`）
