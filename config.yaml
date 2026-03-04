@@ -1,7 +1,7 @@
 ui:
-  pageTitle: "tkqtang Portal"
+  pageTitle: "tkqtangのPortal"
   bookmarkTitle: "自定义"
-  favicon: "./assets/favicon.png"
+  favicon: "./assets/favicon.png"P
   githubUrl: "https://github.com/tkqtang/portal"
   showClock: true
   showRegion: true
