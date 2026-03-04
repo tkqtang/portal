@@ -10,9 +10,9 @@ ui:
   showBookmarks: true
   showHotPanel: true
 theme:
-  heroImage: "./assets/wallpaper/cat.png"
-  heroImageLight: "./assets/wallpaper/cat.png"
-  heroImageDark: "./assets/wallpaper/cat.png"
+  heroImage: "./assets/wallpaper/compressed-cat.jpg"
+  heroImageLight: "./assets/wallpaper/compressed-cat.jpg"
+  heroImageDark: "./assets/wallpaper/compressed-cat.jpg"
   mode: "auto"
   enableToggle: true
 search:
