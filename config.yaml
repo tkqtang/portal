@@ -22,7 +22,7 @@ search:
       enabled: true
       iconClass: "iconfont icon-baidu"
       iconText: "百"
-      placeholder: "百度一下 / 百度搜索..."
+      placeholder: "百度搜索"
       mode: "url"
       url: "https://www.baidu.com/s"
       queryKey: "word"
@@ -71,19 +71,11 @@ bookmarks:
   maxLinksPerGroup: 0
   requestTimeoutMs: 5000
 hot:
-  maxItems: 10
+  maxItems: 15
   defaultSource: "weibo"
   sources:
-    - key: "xiaohongshu"
-      name: "小红书热榜"
-      enabled: true
-      targets:
-        - kind: "generic"
-          enabled: true
-          url: "https://api.cenguigui.cn/api/juhe/hotlist.php?type=xiaohongshu"
-          timeoutMs: 7000
     - key: "weibo"
-      name: "微博热搜"
+      name: "微博热榜"
       enabled: true
       targets:
         - kind: "generic"
@@ -98,42 +90,18 @@ hot:
           enabled: true
           url: "https://api.cenguigui.cn/api/juhe/hotlist.php?type=douyin"
           timeoutMs: 7000
-    - key: "github-trending"
-      name: "GitHub 趋势榜"
-      enabled: true
-      targets:
-        - kind: "github"
-          enabled: true
-          url: "https://api.github.com/search/repositories?q=created:%3E={date-7}&sort=stars&order=desc&per_page=30"
-          timeoutMs: 7000
-    - key: "stackoverflow"
-      name: "Stack Overflow 热门"
-      enabled: true
-      targets:
-        - kind: "stackoverflow"
-          enabled: true
-          url: "https://api.stackexchange.com/2.3/questions?order=desc&sort=hot&site=stackoverflow&pagesize=30"
-          timeoutMs: 7000
-    - key: "hackernews"
-      name: "Hacker News"
-      enabled: true
-      targets:
-        - kind: "hackernews"
-          enabled: true
-          url: "https://hn.algolia.com/api/v1/search?tags=front_page"
-          timeoutMs: 7000
-    - key: "juejin"
-      name: "掘金热榜"
+    - key: "github-star-growth"
+      name: "Github 增长榜"
       enabled: true
       targets:
         - kind: "generic"
           enabled: true
-          url: "https://api.cenguigui.cn/api/juhe/hotlist.php?type=juejin"
-          timeoutMs: 7000
+          url: "https://api.ossinsight.io/v1/trends/repos?period=past_week&language=All"
+          timeoutMs: 8000
 weather:
-  cityName: "北京市"
-  latitude: 39.9042
-  longitude: 116.4074
-  weatherApiUrl: "https://api.open-meteo.com/v1/forecast?latitude=39.9042&longitude=116.4074&current=temperature_2m,weather_code&timezone=Asia%2FShanghai"
+  cityName: "杭州市"
+  latitude: 30.2741
+  longitude: 120.1551
+  weatherApiUrl: "https://api.open-meteo.com/v1/forecast?latitude=30.2741&longitude=120.1551&current=temperature_2m,weather_code&timezone=Asia%2FShanghai"
   weatherUrlTemplate: "https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code&timezone=auto"
   weatherRequestTimeoutMs: 4500

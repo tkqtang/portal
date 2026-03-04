@@ -108,6 +108,8 @@
       -webkit-text-size-adjust: 100%;
       -ms-overflow-style: none;
       scrollbar-width: none;
+      width: 100%;
+      max-width: 100%;
     }
 
     html::-webkit-scrollbar {
@@ -118,9 +120,12 @@
 
     body {
       margin: 0;
-      font-size: 14px;
+      font-size: 15px;
+      line-height: 1.5;
       color: var(--gray-600);
       min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
       background: var(--gray-0);
       font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
       overflow-x: hidden;
@@ -146,6 +151,7 @@
     .hero {
       position: relative;
       min-height: 285px;
+      width: 100%;
       color: var(--gray-50);
       background-image:
         linear-gradient(0deg, var(--hero-overlay-start), var(--hero-overlay-end)),
@@ -189,7 +195,7 @@
       gap: 12px;
       color: var(--gray-50);
       font-weight: 500;
-      font-size: 14px;
+      font-size: 15px;
       letter-spacing: 0.01em;
       text-align: left;
       margin: 0;
@@ -205,8 +211,8 @@
     .theme-switch {
       border: 0;
       border-radius: 0;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       padding: 0;
       display: inline-flex;
       align-items: center;
@@ -250,10 +256,6 @@
       font-weight: 500;
     }
 
-    .weather-main .iconfont {
-      margin-right: 4px;
-    }
-
     .search-shell {
       width: min(600px, 100%);
       margin: 34px auto 0;
@@ -291,15 +293,15 @@
       background: transparent;
       color: inherit;
       border-radius: 0;
-      padding: 4px 8px;
+      padding: 5px 10px;
       font: inherit;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 15px;
       letter-spacing: 0.01em;
       cursor: pointer;
       transition: var(--transition);
       position: relative;
-      min-height: 32px;
+      min-height: 36px;
       opacity: 0.82;
     }
 
@@ -329,7 +331,7 @@
       display: flex;
       align-items: center;
       gap: 0;
-      height: 40px;
+      height: 44px;
       border-radius: 3px;
       border: none;
       background: var(--gray-o7);
@@ -338,7 +340,7 @@
     }
 
     .search-mark {
-      width: 50px;
+      width: 46px;
       height: 100%;
       border-radius: 0;
       display: grid;
@@ -347,7 +349,7 @@
       color: var(--gray-700);
       user-select: none;
       border: none;
-      flex: 0 0 50px;
+      flex: 0 0 46px;
     }
 
     .search-mark .iconfont {
@@ -370,12 +372,12 @@
       background: transparent;
       color: var(--gray-700);
       font: inherit;
-      font-size: 14px;
+      font-size: 15px;
       min-width: 0;
       width: 100%;
       height: 100%;
       flex: 1;
-      padding: 0 6px;
+      padding: 0 10px;
     }
 
     .search-input::placeholder {
@@ -385,7 +387,7 @@
     .search-btn {
       border: none;
       border-radius: 0;
-      width: 50px;
+      width: 46px;
       height: 100%;
       padding: 0;
       background: transparent;
@@ -395,7 +397,7 @@
       transition: var(--transition);
       display: grid;
       place-items: center;
-      flex: 0 0 50px;
+      flex: 0 0 46px;
     }
 
     .search-btn:hover {
@@ -438,6 +440,7 @@
     }
 
     .main {
+      width: 100%;
       max-width: var(--content-max);
       margin: 0 auto;
       padding: 0 max(var(--edge-pad), env(safe-area-inset-right)) 26px max(var(--edge-pad), env(safe-area-inset-left));
@@ -586,6 +589,7 @@
     .site-card {
       position: relative;
       display: block;
+      box-sizing: border-box;
       width: 180px;
       height: 50px;
       background: var(--gray-0);
@@ -644,10 +648,10 @@
 
     .site-title {
       display: block;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
       color: var(--gray-700);
-      line-height: 1.2;
+      line-height: 1.3;
       margin-bottom: 3px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -656,9 +660,9 @@
 
     .site-desc {
       display: block;
-      color: var(--gray-400);
-      font-size: 12px;
-      line-height: 1.2;
+      color: var(--gray-500);
+      font-size: 13px;
+      line-height: 1.35;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -691,8 +695,8 @@
       border-radius: 3px;
       background: var(--gray-0);
       color: var(--gray-600);
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       padding: 0;
       display: inline-flex;
       align-items: center;
@@ -728,7 +732,8 @@
       width: 100%;
       border: 1px solid var(--gray-200);
       border-radius: 3px;
-      padding: 6px 30px 6px 8px;
+      padding: 8px 30px 8px 10px;
+      min-height: 34px;
       background: var(--gray-0);
       color: var(--gray-700);
       font: inherit;
@@ -788,7 +793,7 @@
       grid-template-columns: 22px 1fr;
       gap: 4px;
       align-items: baseline;
-      padding: 1px 0;
+      padding: 3px 0;
       transition: var(--transition);
       min-height: 0;
     }
@@ -818,8 +823,8 @@
 
     .hot-name {
       display: block;
-      font-size: 13px;
-      line-height: 1.42;
+      font-size: 14px;
+      line-height: 1.45;
       color: var(--gray-700);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -830,18 +835,7 @@
       display: inline;
       margin-left: 4px;
       color: var(--gray-500);
-      font-size: 0.74rem;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--gray-500);
-      padding: 18px 10px 26px;
-      font-size: 0.86rem;
-    }
-
-    .footer a {
-      color: var(--blue-500);
+      font-size: 0.8rem;
     }
 
     .engine-tab:focus-visible,
@@ -956,6 +950,18 @@
     }
 
     @media (max-width: 760px) {
+      html,
+      body {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .hero,
+      .main {
+        width: 100%;
+        max-width: 100%;
+      }
+
       :root {
         --edge-pad: 14px;
         --panel-pad: 14px;
@@ -986,37 +992,42 @@
       }
 
       .theme-switch {
-        flex: 0 0 42px;
+        flex: 0 0 44px;
       }
 
       .search-shell {
-        margin-top: 22px;
+        margin-top: 20px;
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
       }
 
       .engine-tabs {
         position: static;
         top: auto;
         left: auto;
-        width: auto;
+        width: 100%;
         margin: 0 0 10px;
-        padding: 2px 0 4px;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
+        padding: 2px 0 6px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
         gap: 8px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x proximity;
+        overflow: visible;
+        max-width: 100%;
       }
 
       .engine-tab {
-        flex: 0 0 auto;
+        min-width: 0;
+        width: 100%;
         min-height: 36px;
-        padding: 6px 12px;
+        padding: 7px 10px;
         border-radius: 999px;
         background: rgba(255, 255, 255, 0.16);
         border: 1px solid rgba(255, 255, 255, 0.28);
-        scroll-snap-align: start;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.2;
+        overflow-wrap: anywhere;
         opacity: 1;
       }
 
@@ -1039,8 +1050,9 @@
       }
 
       .search-form {
-        height: 44px;
-        border-radius: 14px;
+        height: 48px;
+        min-height: 48px;
+        border-radius: 12px;
       }
 
       .search-btn {
@@ -1050,12 +1062,17 @@
 
       .search-input {
         font-size: 16px;
-        padding: 0 8px;
+        padding: 0 10px;
       }
 
       .search-mark {
         width: 44px;
         flex-basis: 44px;
+      }
+
+      .search-mark .iconfont,
+      .search-btn .iconfont {
+        font-size: 22px;
       }
 
       .section-head {
@@ -1064,48 +1081,66 @@
       }
 
       .site-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+        gap: 10px;
+        align-items: stretch;
+        max-width: 100%;
       }
 
       .site-card {
         width: 100%;
-        height: 56px;
-        padding: 6px;
+        min-height: 64px;
+        height: auto;
+        padding: 10px 10px 10px 56px;
+        max-width: 100%;
       }
 
       .site-icon {
-        top: 7px;
-        left: 8px;
-        width: 40px;
-        height: 40px;
+        top: 50%;
+        margin-top: -17px;
+        left: 10px;
+        width: 34px;
+        height: 34px;
       }
 
       .site-card > span:last-child {
-        margin-left: 52px;
-        width: calc(100% - 52px);
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .site-title {
+        font-size: 14px;
+        line-height: 1.28;
+        overflow-wrap: anywhere;
+      }
+
+      .site-desc {
+        font-size: 12px;
+        overflow-wrap: anywhere;
       }
 
       .group-tabs {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        margin: 0 14px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+        margin: 0 12px;
         padding: 8px 0 10px;
         gap: 8px;
         background: transparent;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x proximity;
+        overflow: visible;
       }
 
       .group-tab {
-        flex: 0 0 auto;
-        width: auto;
-        min-width: 96px;
-        min-height: 36px;
-        padding: 8px 12px;
+        width: 100%;
+        min-width: 0;
+        min-height: 38px;
+        padding: 8px 10px;
         border: 1px solid var(--gray-200);
         background: var(--gray-0);
-        scroll-snap-align: start;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+        font-size: 13px;
       }
 
       .group-tab.active {
@@ -1115,6 +1150,17 @@
 
       .bookmark-sections {
         padding: 8px 14px;
+      }
+
+      .bookmark-section {
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .bookmark-section-head {
+        margin-bottom: 8px;
+        gap: 6px;
+        font-size: 15px;
       }
 
       .hot-panel {
@@ -1128,8 +1174,8 @@
       }
 
       .theme-switch {
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         padding: 0;
         justify-content: center;
       }
@@ -1145,53 +1191,105 @@
       .clock-main,
       .region-main,
       .weather-main {
-        font-size: 12px;
+        font-size: 13px;
       }
 
       .section-title {
-        font-size: 15px;
+        font-size: 16px;
       }
 
       .top-sep {
         display: none;
       }
 
+      .search-shell {
+        margin-top: 18px;
+      }
+
+      .search-form {
+        height: 44px;
+        min-height: 44px;
+        border-radius: 11px;
+      }
+
+      .search-input {
+        padding: 0 8px;
+      }
+
       .search-mark {
-        width: 38px;
-        height: 38px;
-        flex-basis: 38px;
+        width: 40px;
+        flex-basis: 40px;
       }
 
       .search-mark .iconfont {
-        font-size: 21px;
+        font-size: 20px;
       }
 
       .search-btn {
-        min-height: 38px;
-        width: 38px;
-        flex-basis: 38px;
+        width: 40px;
+        flex-basis: 40px;
+      }
+
+      .search-btn .iconfont {
+        font-size: 20px;
+      }
+
+      .group-tabs {
+        margin: 0 10px;
+        grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+        gap: 7px;
+      }
+
+      .group-tab {
+        min-width: 0;
+        min-height: 36px;
+        padding: 7px 9px;
+      }
+
+      .site-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(132px, 100%), 1fr));
+        gap: 8px;
+      }
+
+      .bookmark-section {
+        padding: 9px;
+      }
+
+      .bookmark-section-head {
+        margin-bottom: 7px;
+        font-size: 14px;
       }
 
       .site-card {
-        height: 54px;
+        min-height: 60px;
+        height: auto;
+        padding: 8px 8px 8px 50px;
       }
 
       .site-icon {
-        width: 38px;
-        height: 38px;
+        left: 8px;
+        width: 30px;
+        height: 30px;
+        margin-top: -15px;
       }
 
       .site-card > span:last-child {
-        margin-left: 50px;
-        width: calc(100% - 50px);
+        margin-left: 0;
+        width: 100%;
       }
 
       .site-title {
         font-size: 13px;
+        line-height: 1.3;
+        margin-bottom: 1px;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       .site-desc {
-        font-size: 11px;
+        display: none;
       }
 
     }
@@ -1202,13 +1300,43 @@
       }
 
       .engine-tabs {
+        grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
         gap: 6px;
       }
 
       .engine-tab {
         padding: 6px 10px;
+        min-height: 36px;
+        font-size: 0.92rem;
+      }
+
+      .search-form {
+        height: 42px;
+        min-height: 42px;
+      }
+
+      .search-mark,
+      .search-btn {
+        width: 36px;
+        flex-basis: 36px;
+      }
+
+      .search-mark .iconfont,
+      .search-btn .iconfont {
+        font-size: 18px;
+      }
+
+      .group-tabs {
+        margin: 0 8px;
+        grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+        gap: 6px;
+      }
+
+      .group-tab {
+        min-width: 0;
         min-height: 34px;
-        font-size: 0.9rem;
+        padding: 6px 8px;
+        font-size: 12.5px;
       }
 
       .bookmark-section {
@@ -1217,20 +1345,36 @@
 
       .site-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
       }
 
       .site-title {
-        font-size: 0.98rem;
+        font-size: 0.9rem;
       }
 
       .site-desc {
-        font-size: 0.82rem;
+        display: block;
+        font-size: 12px;
       }
 
-      .footer {
-        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+
+    @media (max-width: 360px) {
+      .site-card {
+        min-height: 56px;
+        padding-left: 48px;
       }
 
+      .site-icon {
+        left: 7px;
+        width: 28px;
+        height: 28px;
+        margin-top: -14px;
+      }
+
+      .group-tab {
+        min-width: 0;
+      }
     }
 
     @media (any-hover: none) {
@@ -1310,11 +1454,6 @@
     </aside>
   </main>
 
-  <footer class="footer">
-    <div>个人导航页 · Git-as-Database</div>
-    <div>书签数据来自 <a id="bookmark-source-link" href="#" target="_blank" rel="noopener noreferrer">--</a></div>
-  </footer>
-
   <script>
 
     let appConfig = {};
@@ -1337,9 +1476,22 @@
     let hoveredSiteCard = null;
     let bookmarkHoverTimer = 0;
     let loadedConfigUrl = "";
+    const DEFAULT_TIMEOUT_MS = 5000;
+    const DEFAULT_HOT_TARGET_TIMEOUT_MS = 7000;
 
     function byId(id) {
       return document.getElementById(id);
+    }
+
+    function setNodeHtml(node, html) {
+      if (!node) return;
+      node.innerHTML = html;
+    }
+
+    function setCssBackgroundVar(name, image) {
+      const value = String(image || "").trim();
+      const cssValue = value ? `url("${value.replace(/"/g, '\\"')}")` : "none";
+      document.documentElement.style.setProperty(name, cssValue);
     }
 
     function readLocalStorage(key) {
@@ -1457,11 +1609,19 @@
       return config;
     }
 
-    function appendCacheBuster(url) {
+    function fetchTextNoCache(url, timeoutMs = DEFAULT_TIMEOUT_MS) {
       const raw = String(url || "").trim();
-      if (!raw) return "";
+      if (!raw) {
+        throw new Error("请求地址为空");
+      }
       const joiner = raw.includes("?") ? "&" : "?";
-      return `${raw}${joiner}v=${Date.now()}`;
+      const requestUrl = `${raw}${joiner}v=${Date.now()}`;
+      return fetchWithTimeout(
+        requestUrl,
+        timeoutMs,
+        { cache: "no-store" },
+        "text"
+      );
     }
 
     function normalizeSearchEngines(rawList) {
@@ -1493,9 +1653,8 @@
           const normalizedTargets = targets
             .filter((target) => target && target.enabled !== false && target.url)
             .map((target) => ({
-              kind: String(target.kind || "generic"),
               url: String(target.url),
-              timeoutMs: Number(target.timeoutMs) || 7000
+              timeoutMs: normalizeTimeoutMs(target.timeoutMs, DEFAULT_HOT_TARGET_TIMEOUT_MS)
             }));
           return {
             key: String(source.key),
@@ -1561,7 +1720,22 @@
     function resolveConfigUrl() {
       const params = new URLSearchParams(window.location.search);
       const custom = String(params.get("config") || "").trim();
-      return custom || "./config.yaml";
+      if (!custom) return "./config.yaml";
+
+      try {
+        const resolved = new URL(custom, window.location.href);
+        const currentProtocol = String(window.location.protocol || "").toLowerCase();
+        const isSameOriginHttp = /^https?:$/i.test(resolved.protocol) && resolved.origin === window.location.origin;
+        const isLocalFile = currentProtocol === "file:" && resolved.protocol === "file:";
+        if (isSameOriginHttp || isLocalFile) {
+          return resolved.toString();
+        }
+      } catch {
+        // noop
+      }
+
+      console.warn("配置地址无效或非同源，已回退到默认配置 ./config.yaml");
+      return "./config.yaml";
     }
 
     function resolveAbsoluteUrl(pathOrUrl, baseUrl = window.location.href) {
@@ -1591,11 +1765,7 @@
       const configUrl = resolveConfigUrl();
       loadedConfigUrl = resolveAbsoluteUrl(configUrl, window.location.href);
       const configRequestUrl = loadedConfigUrl || configUrl;
-      const rawText = await fetchTextWithTimeout(
-        appendCacheBuster(configRequestUrl),
-        5000,
-        { cache: "no-store" }
-      );
+      const rawText = await fetchTextNoCache(configRequestUrl, DEFAULT_TIMEOUT_MS);
       const userConfig = parseConfigSource(rawText, configRequestUrl);
       appConfig = assertConfigShape(userConfig, configRequestUrl);
       applyRuntimeConfig();
@@ -1609,20 +1779,10 @@
     function applyUiConfig() {
       const ui = isPlainObject(appConfig.ui) ? appConfig.ui : {};
       const theme = isPlainObject(appConfig.theme) ? appConfig.theme : {};
-      const heroImageLight = String(theme.heroImageLight || theme.heroImage || "").trim();
-      const heroImageDark = String(theme.heroImageDark || theme.heroImageNight || heroImageLight || "").trim();
-      if (heroImageLight) {
-        const escaped = heroImageLight.replace(/"/g, '\\"');
-        document.documentElement.style.setProperty("--hero-image-light", `url("${escaped}")`);
-      } else {
-        document.documentElement.style.setProperty("--hero-image-light", "none");
-      }
-      if (heroImageDark) {
-        const escaped = heroImageDark.replace(/"/g, '\\"');
-        document.documentElement.style.setProperty("--hero-image-dark", `url("${escaped}")`);
-      } else {
-        document.documentElement.style.setProperty("--hero-image-dark", "none");
-      }
+      const heroImageLight = theme.heroImageLight || theme.heroImage || "";
+      const heroImageDark = theme.heroImageDark || theme.heroImageNight || heroImageLight || "";
+      setCssBackgroundVar("--hero-image-light", heroImageLight);
+      setCssBackgroundVar("--hero-image-dark", heroImageDark);
 
       const storedThemeRaw = readLocalStorage(THEME_STORAGE_KEY);
       const hasStoredTheme = storedThemeRaw === "light" || storedThemeRaw === "dark" || storedThemeRaw === "auto";
@@ -1673,13 +1833,6 @@
         main.classList.toggle("single-column", !bookmarksVisible || !hotVisible);
       }
 
-      const sourceLink = byId("bookmark-source-link");
-      const sourceAddress = String((appConfig.bookmarks && appConfig.bookmarks.source) || "").trim();
-      const sourceResolvedAddress = resolveConfigRelativeUrl(sourceAddress);
-      if (sourceLink) {
-        sourceLink.href = safeHttpUrl(sourceResolvedAddress);
-        sourceLink.textContent = sourceAddress;
-      }
     }
 
     function escapeHtml(text) {
@@ -1718,33 +1871,10 @@
       link.setAttribute("type", detectFaviconMimeType(resolved));
     }
 
-    function normalizeTimeoutMs(raw, fallback = 5000) {
+    function normalizeTimeoutMs(raw, fallback = DEFAULT_TIMEOUT_MS) {
       const parsed = Number(raw);
       if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
       return Math.max(200, Math.min(Math.round(parsed), 120000));
-    }
-
-    function formatYmd(date) {
-      const year = date.getFullYear();
-      const month = pad2(date.getMonth() + 1);
-      const day = pad2(date.getDate());
-      return `${year}-${month}-${day}`;
-    }
-
-    function resolveHotUrlTemplate(rawUrl) {
-      const url = String(rawUrl || "").trim();
-      if (!url) return "";
-
-      const now = new Date();
-      const today = formatYmd(now);
-      return url
-        .replace(/\{today\}/g, today)
-        .replace(/\{date-(\d+)\}/g, (_, daysText) => {
-          const days = Number(daysText);
-          const offset = Number.isFinite(days) && days >= 0 ? Math.floor(days) : 0;
-          const date = new Date(now.getTime() - offset * 24 * 60 * 60 * 1000);
-          return formatYmd(date);
-        });
     }
 
     function normalizeLinkUrl(rawUrl) {
@@ -1755,14 +1885,6 @@
         return `https://${value}`;
       }
       return "";
-    }
-
-    function normalizeBookmarkData(raw) {
-      if (!raw) return [];
-      if (Array.isArray(raw)) return raw;
-      if (Array.isArray(raw.groups)) return raw.groups;
-      if (Array.isArray(raw.data)) return raw.data;
-      return [];
     }
 
     function normalizeBookmarkGroups(rawGroups) {
@@ -1853,6 +1975,22 @@
     }
 
     function parseYamlDocument(rawText) {
+      const blockedYamlKeys = new Set(["__proto__", "prototype", "constructor"]);
+      function assertSafeYamlKey(rawKey) {
+        const key = String(rawKey || "").trim();
+        if (!key) return key;
+        if (blockedYamlKeys.has(key.toLowerCase())) {
+          throw new Error(`YAML 包含危险字段：${key}`);
+        }
+        return key;
+      }
+
+      function assignYamlValue(target, rawKey, value) {
+        const key = assertSafeYamlKey(rawKey);
+        if (!key) return;
+        target[key] = value;
+      }
+
       const text = String(rawText || "").replace(/^\uFEFF/, "");
       const lines = text.split(/\r?\n/);
       const firstLine = getNextYamlMeaningfulLine(lines, 0);
@@ -1917,7 +2055,7 @@
           const valueText = String(rawValue || "").trim();
           if (!valueText) {
             const nested = inferNestedContainer(indent, i);
-            obj[key] = nested;
+            assignYamlValue(obj, key, nested);
             stack.push({ type: "object", value: obj, indent });
             if (nested && typeof nested === "object") {
               stack.push({
@@ -1929,7 +2067,7 @@
             continue;
           }
 
-          obj[key] = parseYamlScalar(rawValue);
+          assignYamlValue(obj, key, parseYamlScalar(rawValue));
           stack.push({ type: "object", value: obj, indent });
           continue;
         }
@@ -1942,7 +2080,7 @@
         const valueText = String(rawValue || "").trim();
         if (!valueText) {
           const nested = inferNestedContainer(indent, i);
-          frame.value[key] = nested;
+          assignYamlValue(frame.value, key, nested);
           if (nested && typeof nested === "object") {
             stack.push({
               type: Array.isArray(nested) ? "array" : "object",
@@ -1953,24 +2091,10 @@
           continue;
         }
 
-        frame.value[key] = parseYamlScalar(rawValue);
+        assignYamlValue(frame.value, key, parseYamlScalar(rawValue));
       }
 
       return rootValue;
-    }
-
-    function parseBookmarkYaml(rawText) {
-      const parsed = parseYamlDocument(rawText);
-      if (Array.isArray(parsed)) {
-        return { groups: parsed };
-      }
-      if (isPlainObject(parsed) && Array.isArray(parsed.groups)) {
-        return { groups: parsed.groups };
-      }
-      if (isPlainObject(parsed) && Array.isArray(parsed.data)) {
-        return { groups: parsed.data };
-      }
-      return { groups: [] };
     }
 
     function parseBookmarkSource(rawText, sourceUrl) {
@@ -1984,8 +2108,17 @@
       if (text.startsWith("{") || text.startsWith("[")) {
         throw new Error("书签内容仅支持 YAML 格式");
       }
-
-      return parseBookmarkYaml(text);
+      const parsed = parseYamlDocument(text);
+      if (Array.isArray(parsed)) {
+        return { groups: parsed };
+      }
+      if (isPlainObject(parsed) && Array.isArray(parsed.groups)) {
+        return { groups: parsed.groups };
+      }
+      if (isPlainObject(parsed) && Array.isArray(parsed.data)) {
+        return { groups: parsed.data };
+      }
+      return { groups: [] };
     }
 
     function parseConfigSource(rawText, sourceUrl) {
@@ -2014,98 +2147,10 @@
     function normalizeHotData(raw) {
       if (!raw) return [];
       if (Array.isArray(raw)) return raw;
-      if (Array.isArray(raw.data)) return raw.data;
-      if (Array.isArray(raw.list)) return raw.list;
-      if (Array.isArray(raw.news)) return raw.news;
+      if (isPlainObject(raw) && Array.isArray(raw.data)) return raw.data;
+      if (isPlainObject(raw) && isPlainObject(raw.data) && Array.isArray(raw.data.rows)) return raw.data.rows;
+      if (isPlainObject(raw) && Array.isArray(raw.list)) return raw.list;
       return [];
-    }
-
-    function parseHotPayload(kind, payload) {
-      if (kind === "zhihu") {
-        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
-        return rows.map((item) => {
-          const target = item && item.target ? item.target : {};
-          return {
-            title: target.title || item.title || "",
-            url: target.id ? `https://www.zhihu.com/question/${target.id}` : (target.url || item.url || ""),
-            hot: item.detail_text || ""
-          };
-        });
-      }
-
-      if (kind === "toutiao") {
-        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
-        return rows.map((item) => ({
-          title: item.Title || item.QueryWord || item.title || "",
-          url: item.Url || item.url || "",
-          hot: item.HotValue || item.hot || ""
-        }));
-      }
-
-      if (kind === "juejin") {
-        const rows = Array.isArray(payload && payload.data) ? payload.data : [];
-        return rows.map((item) => {
-          const content = item && item.content ? item.content : {};
-          const counter = item && item.content_counter ? item.content_counter : {};
-          const contentId = String(content.content_id || item.content_id || "");
-          return {
-            title: content.title || item.title || "",
-            url: contentId ? `https://juejin.cn/post/${contentId}` : "",
-            hot: counter.hot_rank || counter.view || counter.interact_count || ""
-          };
-        });
-      }
-
-      if (kind === "v2ex") {
-        const rows = Array.isArray(payload) ? payload : [];
-        return rows.map((item) => ({
-          title: item.title || "",
-          url: item.url || "",
-          hot: item.replies || ""
-        }));
-      }
-
-      if (kind === "thepaper") {
-        const rows = Array.isArray(payload && payload.data && payload.data.hotNews) ? payload.data.hotNews : [];
-        return rows.map((item) => {
-          const contId = String(item.contId || item.cont_id || "");
-          const url = contId ? `https://www.thepaper.cn/newsDetail_forward_${contId}` : "";
-          return {
-            title: item.name || item.title || "",
-            url,
-            hot: item.interactionNum || item.praiseTimes || ""
-          };
-        });
-      }
-
-      if (kind === "github") {
-        const rows = Array.isArray(payload && payload.items) ? payload.items : [];
-        return rows.map((item) => ({
-          title: item.full_name || item.name || "",
-          url: item.html_url || "",
-          hot: item.stargazers_count || item.watchers_count || ""
-        }));
-      }
-
-      if (kind === "stackoverflow") {
-        const rows = Array.isArray(payload && payload.items) ? payload.items : [];
-        return rows.map((item) => ({
-          title: item.title || "",
-          url: item.link || "",
-          hot: item.score || item.answer_count || ""
-        }));
-      }
-
-      if (kind === "hackernews") {
-        const rows = Array.isArray(payload && payload.hits) ? payload.hits : [];
-        return rows.map((item) => ({
-          title: item.title || item.story_title || "",
-          url: item.url || (item.objectID ? `https://news.ycombinator.com/item?id=${item.objectID}` : ""),
-          hot: item.points || item.num_comments || ""
-        }));
-      }
-
-      return normalizeHotData(payload);
     }
 
     function firstChar(text) {
@@ -2156,39 +2201,27 @@
       return group[code] || "天气";
     }
 
-    async function fetchJsonWithTimeout(url, timeoutMs = 5000, requestOptions = {}) {
+    async function fetchWithTimeout(url, timeoutMs = DEFAULT_TIMEOUT_MS, requestOptions = {}, responseType = "json") {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), normalizeTimeoutMs(timeoutMs, 5000));
+      const timer = setTimeout(() => controller.abort(), normalizeTimeoutMs(timeoutMs, DEFAULT_TIMEOUT_MS));
       try {
         const response = await fetch(url, Object.assign({}, requestOptions, { signal: controller.signal }));
         if (!response.ok) {
           throw new Error(`请求失败: ${response.status}`);
         }
-        return await response.json();
-      } finally {
-        clearTimeout(timer);
-      }
-    }
-
-    async function fetchTextWithTimeout(url, timeoutMs = 5000, requestOptions = {}) {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), normalizeTimeoutMs(timeoutMs, 5000));
-      try {
-        const response = await fetch(url, Object.assign({}, requestOptions, { signal: controller.signal }));
-        if (!response.ok) {
-          throw new Error(`请求失败: ${response.status}`);
-        }
-        return await response.text();
+        return responseType === "text" ? await response.text() : await response.json();
       } finally {
         clearTimeout(timer);
       }
     }
 
     function updateTopClock() {
+      const clockNode = byId("clock-main");
+      if (!clockNode) return;
       const now = new Date();
       const dateLabel = `${pad2(now.getMonth() + 1)} 月 ${pad2(now.getDate())} 日`;
       const timeLabel = `${pad2(now.getHours())} 时 ${pad2(now.getMinutes())} 分 ${pad2(now.getSeconds())} 秒`;
-      byId("clock-main").textContent = `${dateLabel} ${timeLabel}`;
+      clockNode.textContent = `${dateLabel} ${timeLabel}`;
     }
 
     async function loadRegionAndWeather() {
@@ -2208,9 +2241,9 @@
         weatherNode.textContent = "☁ 天气加载中";
       }
 
-      try {
-        if (!showWeather || !weatherNode) return;
+      if (!showWeather || !weatherNode) return;
 
+      try {
         const weatherUrl = buildWeatherUrl();
         if (!weatherUrl) {
           weatherNode.textContent = "☁ 天气未知";
@@ -2221,7 +2254,7 @@
           weather.weatherRequestTimeoutMs,
           4500
         );
-        const weatherPayload = await fetchJsonWithTimeout(weatherUrl, weatherTimeout);
+        const weatherPayload = await fetchWithTimeout(weatherUrl, weatherTimeout);
         const current = weatherPayload && (
           weatherPayload.current ||
           weatherPayload.current_weather ||
@@ -2239,9 +2272,7 @@
         weatherNode.textContent = temp === null ? `☁ ${desc}` : `☁ ${desc} ${temp}°C`;
       } catch (error) {
         console.warn(error);
-        if (showWeather && weatherNode) {
-          weatherNode.textContent = "☁ 天气未知";
-        }
+        weatherNode.textContent = "☁ 天气未知";
       }
     }
 
@@ -2368,7 +2399,7 @@
       const wrapper = byId("engine-tabs");
       if (!wrapper) return;
       if (!searchEngines.length) {
-        wrapper.innerHTML = "";
+        setNodeHtml(wrapper, "");
         return;
       }
 
@@ -2377,7 +2408,7 @@
         const cls = isActive ? "engine-tab active" : "engine-tab";
         return `<button class="${cls}" type="button" data-engine="${escapeHtml(engine.key)}">${escapeHtml(engine.name)}</button>`;
       }).join("");
-      wrapper.innerHTML = html;
+      setNodeHtml(wrapper, html);
 
       wrapper.querySelectorAll("button[data-engine]").forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -2490,17 +2521,18 @@
 
     function renderGroupTabs() {
       const wrapper = byId("group-tabs");
+      if (!wrapper) return;
       if (!allGroups.length) {
-        wrapper.innerHTML = "";
+        setNodeHtml(wrapper, "");
         return;
       }
 
-      wrapper.innerHTML = allGroups.map((group, index) => {
+      setNodeHtml(wrapper, allGroups.map((group, index) => {
         const name = escapeHtml(String(group.name || group.group || `分组 ${index + 1}`));
         const anchor = getGroupAnchor(index);
         const cls = anchor === activeGroupAnchor ? "group-tab active" : "group-tab";
         return `<button class="${cls}" type="button" data-group-anchor="${anchor}">${name}</button>`;
-      }).join("");
+      }).join(""));
 
       wrapper.querySelectorAll("button[data-group-anchor]").forEach((button) => {
         button.addEventListener("click", () => {
@@ -2518,6 +2550,7 @@
 
     function renderBookmarks() {
       const container = byId("bookmark-sections");
+      if (!container) return;
       if (!allGroups.length) {
         container.innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
         return;
@@ -2557,21 +2590,18 @@
       }).join("");
     }
 
-    async function loadBookmarks() {
+    async function loadBookmarks(options = {}) {
       const currentToken = ++bookmarkLoadToken;
+      const shouldRender = options.render !== false;
       const bookmarks = isPlainObject(appConfig.bookmarks) ? appConfig.bookmarks : {};
       const sourcePath = String(bookmarks.source || "").trim();
       const sourceUrl = resolveConfigRelativeUrl(sourcePath);
       try {
-        const requestTimeoutMs = normalizeTimeoutMs(bookmarks.requestTimeoutMs, 5000);
-        const rawText = await fetchTextWithTimeout(
-          appendCacheBuster(sourceUrl),
-          requestTimeoutMs,
-          { cache: "no-store" }
-        );
+        const requestTimeoutMs = normalizeTimeoutMs(bookmarks.requestTimeoutMs, DEFAULT_TIMEOUT_MS);
+        const rawText = await fetchTextNoCache(sourceUrl, requestTimeoutMs);
         if (currentToken !== bookmarkLoadToken) return;
         const parsed = parseBookmarkSource(rawText, sourceUrl);
-        const normalizedGroups = normalizeBookmarkGroups(normalizeBookmarkData(parsed));
+        const normalizedGroups = normalizeBookmarkGroups(parsed.groups);
         allGroups = applyBookmarkFilters(normalizedGroups);
       } catch (error) {
         console.warn(error);
@@ -2579,11 +2609,18 @@
       }
 
       if (currentToken !== bookmarkLoadToken) return;
+      if (!shouldRender) return;
 
       if (!allGroups.length) {
         clearBookmarkHoverState();
+        const bookmarkSections = byId("bookmark-sections");
+        if (bookmarkSections) {
         byId("bookmark-sections").innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
-        byId("group-tabs").innerHTML = "";
+        }
+        const tabs = byId("group-tabs");
+        if (tabs) {
+          tabs.innerHTML = "";
+        }
         return;
       }
 
@@ -2596,71 +2633,53 @@
       initBookmarkHoverInteractions();
     }
 
-    function toHotItem(item, index) {
-      const nestedTarget = item && item.target ? item.target : {};
+    function toHotItem(item) {
       const title = String(
         item.title ||
         item.name ||
+        item.repo_name ||
+        item.full_name ||
         item.word ||
         item.keyword ||
         item.hotword ||
-        item.QueryWord ||
-        item.Title ||
-        nestedTarget.title ||
-        "未命名话题"
+        "\u672A\u547D\u540D\u8BDD\u9898"
       );
-
       const rawUrl = String(
         item.url ||
         item.link ||
         item.href ||
-        item.Url ||
-        nestedTarget.url ||
+        item.mobilUrl ||
         ""
       );
-
       let url = normalizeLinkUrl(rawUrl);
-      if (!url && nestedTarget.id) {
-        url = `https://www.zhihu.com/question/${nestedTarget.id}`;
-      }
-      if (/^https:\/\/api\.zhihu\.com\/questions\/(\d+)/i.test(url)) {
-        url = url.replace(/^https:\/\/api\.zhihu\.com\/questions\/(\d+).*$/i, "https://www.zhihu.com/question/$1");
+      if (!url && item.repo_name && /^[^/]+\/[^/]+$/.test(String(item.repo_name))) {
+        url = `https://github.com/${String(item.repo_name).trim()}`;
       }
       url = normalizeLinkUrl(url);
-
       const score =
         item.hot ||
+        item.stars ||
+        item.currentPeriodStars ||
+        item.starsToday ||
+        item.today_stars ||
+        item.starIncrease ||
+        item.star_increase ||
         item.score ||
         item.heat ||
-        item.num ||
-        item.HotValue ||
-        item.replies ||
-        item.comment_count ||
-        item.interactionNum ||
-        item.praiseTimes ||
-        item.stargazers_count ||
-        item.watchers_count ||
-        item.points ||
-        item.num_comments ||
-        item.answer_count ||
-        item.detail_text ||
         "";
-
       return {
-        rank: index + 1,
         title,
         url,
         score: score ? String(score) : ""
       };
     }
-
     function normalizeHotItems(rawItems) {
       const items = Array.isArray(rawItems) ? rawItems : [];
       const seen = new Set();
       const normalized = [];
 
       items.forEach((item) => {
-        const parsed = toHotItem(item, normalized.length);
+        const parsed = toHotItem(item);
         const title = String(parsed.title || "").trim();
         if (!title) return;
 
@@ -2678,6 +2697,39 @@
       });
 
       return normalized;
+    }
+
+    function buildHotSourceQueue(preferredSource) {
+      if (!preferredSource) return [];
+      return [preferredSource].concat(hotSources.filter((item) => item.key !== preferredSource.key));
+    }
+
+    async function loadHotItemsBySource(source, token) {
+      const targets = Array.isArray(source && source.targets) ? source.targets : [];
+      let lastError = null;
+
+      for (const target of targets) {
+        try {
+          const timeoutMs = normalizeTimeoutMs(target && target.timeoutMs, DEFAULT_HOT_TARGET_TIMEOUT_MS);
+          const json = await fetchWithTimeout(
+            String(target.url || "").trim(),
+            timeoutMs,
+            { cache: "no-store" }
+          );
+          if (token !== hotLoadToken) {
+            return { items: [], aborted: true, lastError };
+          }
+
+          const items = normalizeHotItems(normalizeHotData(json));
+          if (items.length) {
+            return { items, aborted: false, lastError };
+          }
+        } catch (error) {
+          lastError = error;
+        }
+      }
+
+      return { items: [], aborted: false, lastError };
     }
 
     function renderHotSources() {
@@ -2705,14 +2757,15 @@
 
     function renderHotList(items) {
       const list = byId("hot-list");
+      if (!list) return;
 
       if (!items.length) {
-        list.innerHTML = `<li class="empty">暂无热点数据，可切换来源后重试。</li>`;
+        setNodeHtml(list, `<li class="empty">暂无热点数据，可切换来源后重试。</li>`);
         return;
       }
 
       const maxItems = Math.max(1, Number((appConfig.hot && appConfig.hot.maxItems) || 10) || 10);
-      list.innerHTML = items.slice(0, maxItems).map((item) => {
+      setNodeHtml(list, items.slice(0, maxItems).map((item) => {
         const rankClass = item.rank <= 3 ? "rank top3" : "rank";
         const meta = item.score ? `<span class="hot-meta">热度 ${escapeHtml(item.score)}</span>` : "";
         const body = `
@@ -2736,7 +2789,7 @@
             </a>
           </li>
         `;
-      }).join("");
+      }).join(""));
     }
 
     async function loadHotList() {
@@ -2759,7 +2812,7 @@
       }
 
       const preferred = hotSources.find((item) => item.key === sourceSelect.value) || hotSources[0];
-      const queue = [preferred].concat(hotSources.filter((item) => item.key !== preferred.key));
+      const queue = buildHotSourceQueue(preferred);
 
       status.classList.remove("error");
       let parsedList = [];
@@ -2770,28 +2823,18 @@
         for (const source of queue) {
           if (currentToken !== hotLoadToken) return;
           status.textContent = `正在加载 ${source.name}`;
-          const targets = Array.isArray(source.targets) ? source.targets : [];
 
-          for (const target of targets) {
-            try {
-              const json = await fetchJsonWithTimeout(
-                resolveHotUrlTemplate(target.url),
-                normalizeTimeoutMs(target.timeoutMs, 7000),
-                { cache: "no-store" }
-              );
-              if (currentToken !== hotLoadToken) return;
-              const items = normalizeHotItems(parseHotPayload(target.kind, json));
-              if (items.length) {
-                parsedList = items;
-                usedSource = source;
-                break;
-              }
-            } catch (error) {
-              lastError = error;
-            }
+          const result = await loadHotItemsBySource(source, currentToken);
+          if (result.aborted) return;
+          if (result.lastError) {
+            lastError = result.lastError;
           }
 
-          if (parsedList.length) break;
+          if (result.items.length) {
+            parsedList = result.items;
+            usedSource = source;
+            break;
+          }
         }
 
         if (currentToken !== hotLoadToken) return;
@@ -2863,13 +2906,16 @@
       }
       applyUiConfig();
 
-      updateTopClock();
-      setInterval(updateTopClock, 1000);
-
       const ui = isPlainObject(appConfig.ui) ? appConfig.ui : {};
-      const needsBookmarkData = ui.showBookmarks !== false || (ui.showSearch !== false && searchEngines.some((engine) => engine.mode === "site-local"));
+      const shouldRenderBookmarks = ui.showBookmarks !== false;
+      if (ui.showClock !== false) {
+        updateTopClock();
+        setInterval(updateTopClock, 1000);
+      }
+
+      const needsBookmarkData = shouldRenderBookmarks || (ui.showSearch !== false && searchEngines.some((engine) => engine.mode === "site-local"));
       if (needsBookmarkData) {
-        await loadBookmarks();
+        await loadBookmarks({ render: shouldRenderBookmarks });
       }
 
       if (ui.showSearch !== false && searchEngines.length > 0) {

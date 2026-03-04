@@ -72,7 +72,9 @@ groups:
 `hot.sources[].targets[].url` 支持日期占位符：
 
 - `{today}`：当天日期（`YYYY-MM-DD`）
+- `{today-slash}`：当天日期（`YYYY/MM/DD`）
 - `{date-7}`：7 天前日期（`YYYY-MM-DD`，`N` 可替换为任意非负整数）
+- `{date-7-slash}`：7 天前日期（`YYYY/MM/DD`，`N` 可替换为任意非负整数）
 
 ## 注意事项
 
