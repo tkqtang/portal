@@ -8,7 +8,7 @@
 - 天气信息展示（可配置城市与接口）
 - 明暗主题切换（太阳 / 月亮图标）
 
-无需后端，直接部署到 Gitee Pages / GitHub Pages 即可运行。
+无需后端，直接部署到 GitHub Pages 即可运行。
 
 ## 目录说明
 
@@ -17,16 +17,16 @@
 - `links.yaml`：书签分组数据
 - `assets/`：图标字体、背景图等静态资源
 
-## 快速部署（Gitee Pages）
+## 快速部署（GitHub Pages）
 
 1. 新建仓库并上传以下文件：
    - `index.html`
    - `config.yaml`
    - `links.yaml`
    - `assets/`
-2. 进入仓库 `服务 -> Gitee Pages`
+2. 进入仓库 `Settings -> Pages`
 3. 选择分支（`main` 或 `master`）和目录（`/`）
-4. 启动构建并访问分配的 Pages 地址
+4. 保存后访问分配的 `https://<username>.github.io/<repo>/` 地址
 
 ## 配置文件
 
