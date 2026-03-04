@@ -18,15 +18,15 @@ theme:
 search:
   defaultEngine: "bing"
   engines:
-    - key: "baidu"
-      name: "百度"
+    - key: "bing"
+      name: "Bing"
       enabled: true
-      iconClass: "iconfont icon-baidu"
-      iconText: "百"
-      placeholder: "百度搜索"
+      iconClass: "iconfont icon-yingyong"
+      iconText: "B"
+      placeholder: "在 Bing 中搜索"
       mode: "url"
-      url: "https://www.baidu.com/s"
-      queryKey: "word"
+      url: "https://cn.bing.com/search"
+      queryKey: "q"
       params: {}
     - key: "google"
       name: "Google"
@@ -38,15 +38,15 @@ search:
       url: "https://www.google.com/search"
       queryKey: "q"
       params: {}
-    - key: "bing"
-      name: "Bing"
+    - key: "baidu"
+      name: "百度"
       enabled: true
-      iconClass: "iconfont icon-yingyong"
-      iconText: "B"
-      placeholder: "在 Bing 中搜索"
+      iconClass: "iconfont icon-baidu"
+      iconText: "百"
+      placeholder: "百度搜索"
       mode: "url"
-      url: "https://cn.bing.com/search"
-      queryKey: "q"
+      url: "https://www.baidu.com/s"
+      queryKey: "word"
       params: {}
     - key: "site"
       name: "站内搜"

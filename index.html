@@ -158,8 +158,9 @@
         var(--hero-image-current);
       background-size: cover;
       background-position: center center;
-      overflow: hidden;
+      overflow: visible;
       border-bottom: none;
+      z-index: 20;
     }
 
     .hero::before {
@@ -271,6 +272,7 @@
       margin: 34px auto 0;
       animation: float-in 450ms ease;
       position: relative;
+      z-index: 1200;
     }
 
     .engine-tabs {
@@ -420,6 +422,126 @@
       line-height: 1;
     }
 
+    .search-tip {
+      min-height: 0;
+      margin: 8px 2px 0;
+      font-size: 0.85rem;
+      line-height: 1.35;
+      color: rgba(241, 245, 249, 0.92);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+    }
+
+    .search-tip:empty {
+      display: none;
+    }
+
+    .search-tip.error {
+      color: #fecaca;
+    }
+
+    .site-search-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      max-height: min(360px, 65vh);
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-gutter: stable both-edges;
+      scrollbar-color: var(--gray-300) var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      background: var(--gray-0);
+      box-shadow: 0 10px 24px -14px rgba(15, 23, 42, 0.45);
+      padding: 6px;
+    }
+
+    .site-search-panel::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .site-search-panel::-webkit-scrollbar-track {
+      background: var(--gray-50);
+      border-radius: 999px;
+    }
+
+    .site-search-panel::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 999px;
+      border: 2px solid var(--gray-50);
+    }
+
+    .site-search-panel::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-400);
+    }
+
+    .site-search-panel[hidden] {
+      display: none;
+    }
+
+    .site-search-item {
+      display: block;
+      padding: 9px 10px;
+      margin-bottom: 4px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      background: var(--gray-0);
+      color: var(--gray-700);
+      transition: var(--transition);
+    }
+
+    .site-search-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .site-search-item:hover,
+    .site-search-item:focus-visible {
+      color: var(--blue-500);
+      background: var(--gray-50);
+      border-color: var(--gray-200);
+      outline: none;
+    }
+
+    .site-search-title {
+      display: block;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 600;
+      color: inherit;
+      word-break: break-word;
+    }
+
+    .site-search-url {
+      margin-top: 1px;
+      display: block;
+      font-size: 12px;
+      color: inherit;
+      opacity: 0.78;
+      word-break: break-all;
+    }
+
+    .site-search-item:hover .site-search-url,
+    .site-search-item:focus-visible .site-search-url {
+      opacity: 1;
+    }
+
+    .site-search-empty,
+    .site-search-more {
+      padding: 8px 10px;
+      margin: 2px 0 0;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .site-search-more {
+      border-top: 1px solid var(--gray-200);
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+    }
+
     :root[theme-mode='dark'] .search-form {
       background: rgba(17, 24, 39, 0.66);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -435,6 +557,42 @@
 
     :root[theme-mode='dark'] .search-input::placeholder {
       color: var(--gray-500);
+    }
+
+    :root[theme-mode='dark'] .site-search-panel {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(17, 24, 39, 0.96);
+      box-shadow: 0 10px 24px -14px rgba(2, 6, 23, 0.95);
+      scrollbar-color: rgba(148, 163, 184, 0.56) rgba(30, 41, 59, 0.78);
+    }
+
+    :root[theme-mode='dark'] .site-search-panel::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.78);
+    }
+
+    :root[theme-mode='dark'] .site-search-panel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.56);
+      border-color: rgba(30, 41, 59, 0.78);
+    }
+
+    :root[theme-mode='dark'] .site-search-panel::-webkit-scrollbar-thumb:hover {
+      background: rgba(203, 213, 225, 0.72);
+    }
+
+    :root[theme-mode='dark'] .site-search-item {
+      background: rgba(30, 41, 59, 0.4);
+      border-color: transparent;
+    }
+
+    :root[theme-mode='dark'] .site-search-item:hover,
+    :root[theme-mode='dark'] .site-search-item:focus-visible {
+      background: rgba(51, 65, 85, 0.7);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    :root[theme-mode='dark'] .site-search-more {
+      border-top-color: rgba(148, 163, 184, 0.3);
+      background: rgba(30, 41, 59, 0.62);
     }
 
     /* Keep hero texts readable on dark wallpaper */
@@ -459,6 +617,8 @@
       gap: 10px;
       align-items: start;
       background: var(--gray-50);
+      position: relative;
+      z-index: 1;
     }
 
     .main.single-column {
@@ -1244,6 +1404,10 @@
         font-size: 20px;
       }
 
+      .site-search-title {
+        font-size: 14px;
+      }
+
       .group-tabs {
         margin: 0 10px;
         grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
@@ -1438,6 +1602,8 @@
           <input id="search-input" class="search-input" type="search" autocomplete="off" placeholder="输入关键词后回车搜索">
           <button class="search-btn" type="submit" aria-label="搜索"><i class="iconfont icon-md-search"></i></button>
         </form>
+        <div id="site-search-panel" class="site-search-panel" role="list" aria-label="站内搜索结果" hidden></div>
+        <p id="search-tip" class="search-tip" aria-live="polite"></p>
       </section>
     </div>
   </header>
@@ -1473,6 +1639,7 @@
     let searchEngines = [];
     let hotSources = [];
     let allGroups = [];
+    let siteSearchEntries = [];
     let activeGroupAnchor = "";
     let activeEngineKey = "";
     const STORAGE_KEYS = Object.freeze({
@@ -1488,9 +1655,12 @@
     let hotLoadToken = 0;
     let hoveredSiteCard = null;
     let bookmarkHoverTimer = 0;
+    let siteSearchInputTimer = 0;
     let loadedConfigUrl = "";
     const DEFAULT_TIMEOUT_MS = 5000;
     const DEFAULT_HOT_TARGET_TIMEOUT_MS = 7000;
+    const SITE_SEARCH_MAX_RESULTS = 12;
+    const SITE_SEARCH_INPUT_DEBOUNCE_MS = 80;
 
     function byId(id) {
       return document.getElementById(id);
@@ -2191,6 +2361,120 @@
       return searchEngines.find((item) => item.key === activeEngineKey) || searchEngines[0] || null;
     }
 
+    function isSiteLocalEngine(engine = getActiveEngine()) {
+      return !!engine && engine.mode === "site-local";
+    }
+
+    function setSearchTip(message, isError = false) {
+      const tip = byId("search-tip");
+      if (!tip) return;
+      const text = String(message || "").trim();
+      tip.textContent = text;
+      tip.classList.toggle("error", !!text && isError === true);
+    }
+
+    function clearSearchTip() {
+      setSearchTip("", false);
+    }
+
+    function clearSiteSearchInputTimer() {
+      if (!siteSearchInputTimer) return;
+      clearTimeout(siteSearchInputTimer);
+      siteSearchInputTimer = 0;
+    }
+
+    function focusSearchInputCursorToEnd() {
+      const input = byId("search-input");
+      if (!input) return;
+      input.focus();
+      if (typeof input.setSelectionRange === "function") {
+        const len = String(input.value || "").length;
+        try {
+          input.setSelectionRange(len, len);
+        } catch {
+          // noop
+        }
+      }
+    }
+
+    function hideSiteSearchPanel() {
+      clearSiteSearchInputTimer();
+      const panel = byId("site-search-panel");
+      if (!panel) return;
+      panel.hidden = true;
+      panel.innerHTML = "";
+    }
+
+    function getSiteSearchItems() {
+      const panel = byId("site-search-panel");
+      if (!panel || panel.hidden) return [];
+      return Array.from(panel.querySelectorAll("a.site-search-item"));
+    }
+
+    function focusSiteSearchItemByIndex(index) {
+      const items = getSiteSearchItems();
+      if (!items.length) return false;
+      const safeIndex = Math.max(0, Math.min(index, items.length - 1));
+      const item = items[safeIndex];
+      if (!item) return false;
+      item.focus();
+      item.scrollIntoView({ block: "nearest" });
+      return true;
+    }
+
+    function scheduleSiteSearchPanelRender(keyword) {
+      clearSiteSearchInputTimer();
+      siteSearchInputTimer = setTimeout(() => {
+        siteSearchInputTimer = 0;
+        renderSiteSearchPanel(keyword);
+      }, SITE_SEARCH_INPUT_DEBOUNCE_MS);
+    }
+
+    function renderSiteSearchPanel(keyword) {
+      clearSiteSearchInputTimer();
+      const panel = byId("site-search-panel");
+      if (!panel) return 0;
+      const engine = getActiveEngine();
+      if (!isSiteLocalEngine(engine)) {
+        hideSiteSearchPanel();
+        return 0;
+      }
+
+      const text = String(keyword || "").trim();
+      if (!text) {
+        hideSiteSearchPanel();
+        return 0;
+      }
+
+      const matches = findSiteMatches(text);
+      if (!matches.length) {
+        panel.hidden = false;
+        panel.innerHTML = `<div class="site-search-empty">站内未找到匹配结果</div>`;
+        return 0;
+      }
+
+      const shown = matches.slice(0, SITE_SEARCH_MAX_RESULTS);
+      const listHtml = shown.map((item, index) => {
+        const title = escapeHtml(item.title || item.url || "未命名站点");
+        const desc = escapeHtml(String(item.desc || "").trim());
+        const url = escapeHtml(safeHttpUrl(item.url));
+        const meta = desc ? desc : url;
+        return `
+          <a class="site-search-item" href="${url}" target="_blank" rel="noopener noreferrer" role="listitem" aria-setsize="${matches.length}" aria-posinset="${index + 1}">
+            <span class="site-search-title">${title}</span>
+            <span class="site-search-url">${meta}</span>
+          </a>
+        `;
+      }).join("");
+
+      const moreHtml = matches.length > shown.length
+        ? `<div class="site-search-more">共 ${matches.length} 条，仅展示前 ${shown.length} 条</div>`
+        : "";
+      panel.innerHTML = `${listHtml}${moreHtml}`;
+      panel.hidden = false;
+      return matches.length;
+    }
+
     function weatherTextByCode(code) {
       const group = {
         0: "晴",
@@ -2300,24 +2584,37 @@
       }
     }
 
-    function findSiteMatches(keyword) {
-      const target = keyword.trim().toLowerCase();
-      if (!target) return [];
-      const result = [];
-      allGroups.forEach((group) => {
+    function rebuildSiteSearchEntries(groups) {
+      const source = Array.isArray(groups) ? groups : [];
+      const entries = [];
+      source.forEach((group) => {
         if (!group || !Array.isArray(group.links)) return;
         group.links.forEach((item) => {
-          const title = String(item.title || item.name || "");
-          const desc = String(item.desc || item.description || "");
+          const title = String(item.title || item.name || "").trim();
+          const desc = String(item.desc || item.description || "").trim();
           const url = normalizeLinkUrl(item.url);
           if (!url) return;
-          const text = `${title} ${desc} ${url}`.toLowerCase();
-          if (text.includes(target)) {
-            result.push({ title, url });
-          }
+          entries.push({
+            title: title || url,
+            desc,
+            url,
+            searchText: `${title} ${desc} ${url}`.toLowerCase()
+          });
         });
       });
-      return result;
+      siteSearchEntries = entries;
+    }
+
+    function findSiteMatches(keyword) {
+      const target = String(keyword || "").trim().toLowerCase();
+      if (!target || !siteSearchEntries.length) return [];
+      return siteSearchEntries
+        .filter((entry) => entry.searchText.includes(target))
+        .map((entry) => ({
+          title: entry.title,
+          url: entry.url,
+          desc: entry.desc
+        }));
     }
 
     function getGroupAnchor(index) {
@@ -2440,6 +2737,8 @@
           writeLocalStorage(STORAGE_KEYS.engineKey, activeEngineKey);
           renderEngineTabs();
           updateSearchInputState();
+          clearSearchTip();
+          hideSiteSearchPanel();
           const input = byId("search-input");
           if (input) input.focus();
         });
@@ -2475,6 +2774,9 @@
       icon.className = iconClass;
       fallback.style.display = "none";
       icon.style.display = "inline-block";
+      if (!isSiteLocalEngine(engine)) {
+        hideSiteSearchPanel();
+      }
     }
 
     function initSearch() {
@@ -2489,6 +2791,7 @@
 
       renderEngineTabs();
       updateSearchInputState();
+      const searchShell = document.querySelector(".search-shell");
 
       const form = byId("search-form");
       if (form && form.dataset.boundSubmit !== "1") {
@@ -2498,29 +2801,105 @@
           const input = byId("search-input");
           if (!input) return;
           const keyword = input.value.trim();
+          clearSearchTip();
           if (!keyword) {
+            hideSiteSearchPanel();
             input.focus();
+            setSearchTip("请输入关键词后再搜索", true);
             return;
           }
 
           const engine = getActiveEngine();
           if (!engine) return;
 
-          if (engine.mode === "site-local") {
-            const matches = findSiteMatches(keyword);
-            if (!matches.length) {
-              input.value = "";
-              input.placeholder = "站内无匹配站点，请换个关键词";
-              setTimeout(updateSearchInputState, 1200);
-              return;
-            }
-            window.open(matches[0].url, "_blank", "noopener,noreferrer");
+          if (isSiteLocalEngine(engine)) {
+            renderSiteSearchPanel(keyword);
             return;
           }
 
+          hideSiteSearchPanel();
           const url = buildSearchUrl(engine, keyword);
           if (url) {
             window.open(url, "_blank", "noopener,noreferrer");
+          }
+        });
+      }
+
+      const input = byId("search-input");
+      if (input && input.dataset.boundSearchInput !== "1") {
+        input.dataset.boundSearchInput = "1";
+        input.addEventListener("input", () => {
+          clearSearchTip();
+          if (!isSiteLocalEngine()) {
+            hideSiteSearchPanel();
+            return;
+          }
+          scheduleSiteSearchPanelRender(input.value);
+        });
+        input.addEventListener("focus", () => {
+          if (!isSiteLocalEngine()) return;
+          renderSiteSearchPanel(input.value);
+        });
+        input.addEventListener("keydown", (event) => {
+          if (!isSiteLocalEngine()) return;
+          if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+          const panel = byId("site-search-panel");
+          if (!panel || panel.hidden) {
+            renderSiteSearchPanel(input.value);
+          }
+          const items = getSiteSearchItems();
+          if (!items.length) return;
+          event.preventDefault();
+          if (event.key === "ArrowDown") {
+            focusSiteSearchItemByIndex(0);
+            return;
+          }
+          focusSiteSearchItemByIndex(items.length - 1);
+        });
+      }
+
+      const panel = byId("site-search-panel");
+      if (panel && panel.dataset.boundSiteSearchKeyNav !== "1") {
+        panel.dataset.boundSiteSearchKeyNav = "1";
+        panel.addEventListener("keydown", (event) => {
+          const target = event.target;
+          const item = target && target.closest ? target.closest("a.site-search-item") : null;
+          if (!item || !panel.contains(item)) return;
+
+          const items = getSiteSearchItems();
+          if (!items.length) return;
+          const index = items.indexOf(item);
+          if (index < 0) return;
+
+          if (event.key === "ArrowDown") {
+            event.preventDefault();
+            if (index >= items.length - 1) {
+              focusSearchInputCursorToEnd();
+              return;
+            }
+            focusSiteSearchItemByIndex(index + 1);
+            return;
+          }
+
+          if (event.key === "ArrowUp") {
+            event.preventDefault();
+            if (index <= 0) {
+              focusSearchInputCursorToEnd();
+              return;
+            }
+            focusSiteSearchItemByIndex(index - 1);
+            return;
+          }
+
+          if (event.key === "Home") {
+            event.preventDefault();
+            focusSiteSearchItemByIndex(0);
+            return;
+          }
+
+          if (event.key === "End") {
+            event.preventDefault();
+            focusSiteSearchItemByIndex(items.length - 1);
           }
         });
       }
@@ -2539,6 +2918,32 @@
           const input = byId("search-input");
           if (!input) return;
           input.focus();
+        });
+      }
+
+      if (document.body.dataset.boundSiteSearchPanelDismiss !== "1") {
+        document.body.dataset.boundSiteSearchPanelDismiss = "1";
+        document.addEventListener("click", (event) => {
+          if (!searchShell) return;
+          const target = event.target;
+          if (target && searchShell.contains(target)) return;
+          hideSiteSearchPanel();
+        });
+      }
+
+      if (document.body.dataset.boundSiteSearchEsc !== "1") {
+        document.body.dataset.boundSiteSearchEsc = "1";
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            const panel = byId("site-search-panel");
+            const target = event.target;
+            const inPanel = !!(panel && target && panel.contains(target));
+            hideSiteSearchPanel();
+            if (inPanel) {
+              event.preventDefault();
+              focusSearchInputCursorToEnd();
+            }
+          }
         });
       }
     }
@@ -2627,9 +3032,12 @@
         const parsed = parseBookmarkSource(rawText, sourceUrl);
         const normalizedGroups = normalizeBookmarkGroups(parsed.groups);
         allGroups = applyBookmarkFilters(normalizedGroups);
+        rebuildSiteSearchEntries(allGroups);
       } catch (error) {
+        if (currentToken !== bookmarkLoadToken) return;
         console.warn(error);
         allGroups = [];
+        rebuildSiteSearchEntries([]);
       }
 
       if (currentToken !== bookmarkLoadToken) return;
@@ -2639,7 +3047,7 @@
         clearBookmarkHoverState();
         const bookmarkSections = byId("bookmark-sections");
         if (bookmarkSections) {
-        byId("bookmark-sections").innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
+          bookmarkSections.innerHTML = `<div class="empty">没有可展示的书签分组。</div>`;
         }
         const tabs = byId("group-tabs");
         if (tabs) {
