@@ -2733,16 +2733,74 @@
 
       wrapper.querySelectorAll("button[data-engine]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          activeEngineKey = btn.dataset.engine || activeEngineKey || (searchEngines[0] ? searchEngines[0].key : "");
-          writeLocalStorage(STORAGE_KEYS.engineKey, activeEngineKey);
-          renderEngineTabs();
-          updateSearchInputState();
-          clearSearchTip();
-          hideSiteSearchPanel();
-          const input = byId("search-input");
-          if (input) input.focus();
+          const fallback = searchEngines[0] ? searchEngines[0].key : "";
+          applyActiveEngine(btn.dataset.engine || activeEngineKey || fallback, true);
         });
       });
+    }
+
+    function applyActiveEngine(nextKey, focusInput = false) {
+      if (!nextKey) return false;
+      if (!searchEngines.some((item) => item.key === nextKey)) return false;
+      activeEngineKey = nextKey;
+      writeLocalStorage(STORAGE_KEYS.engineKey, activeEngineKey);
+      renderEngineTabs();
+      updateSearchInputState();
+      clearSearchTip();
+      hideSiteSearchPanel();
+      if (focusInput) {
+        const input = byId("search-input");
+        if (input) {
+          try {
+            input.focus({ preventScroll: true });
+          } catch (error) {
+            input.focus();
+          }
+        }
+      }
+      return true;
+    }
+
+    function switchActiveEngineByOffset(offset, focusInput = false) {
+      if (!searchEngines.length) return false;
+      const currentIndex = searchEngines.findIndex((item) => item.key === activeEngineKey);
+      const baseIndex = currentIndex >= 0 ? currentIndex : 0;
+      const nextIndex = (baseIndex + offset + searchEngines.length) % searchEngines.length;
+      const next = searchEngines[nextIndex];
+      if (!next) return false;
+      return applyActiveEngine(next.key, focusInput);
+    }
+
+    function scrollPageToTop() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    function focusSearchInputAndInsertText(text = "") {
+      const input = byId("search-input");
+      if (!input) return false;
+
+      scrollPageToTop();
+      try {
+        input.focus({ preventScroll: true });
+      } catch (error) {
+        input.focus();
+      }
+      scrollPageToTop();
+      requestAnimationFrame(scrollPageToTop);
+
+      if (!text) return true;
+
+      const start = typeof input.selectionStart === "number" ? input.selectionStart : input.value.length;
+      const end = typeof input.selectionEnd === "number" ? input.selectionEnd : input.value.length;
+      input.value = `${input.value.slice(0, start)}${text}${input.value.slice(end)}`;
+      const nextPos = start + text.length;
+      if (typeof input.setSelectionRange === "function") {
+        input.setSelectionRange(nextPos, nextPos);
+      }
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+      return true;
     }
 
     function updateSearchInputState() {
@@ -2908,16 +2966,23 @@
         document.body.dataset.boundSearchShortcut = "1";
         document.addEventListener("keydown", (event) => {
           if (event.ctrlKey || event.metaKey || event.altKey) return;
-          const isSlash = event.key === "/" || event.code === "NumpadDivide";
-          if (!isSlash) return;
+          if (event.isComposing) return;
           const target = event.target;
           const tag = target && target.tagName ? target.tagName.toLowerCase() : "";
+          const isSearchInput = !!(target && target.id === "search-input");
           const isEditable = target && (target.isContentEditable || tag === "input" || tag === "textarea");
+
+          if (event.key === "Tab") {
+            if (isEditable && !isSearchInput) return;
+            event.preventDefault();
+            switchActiveEngineByOffset(event.shiftKey ? -1 : 1, true);
+            return;
+          }
+
           if (isEditable) return;
+          if (event.key.length !== 1) return;
           event.preventDefault();
-          const input = byId("search-input");
-          if (!input) return;
-          input.focus();
+          focusSearchInputAndInsertText(event.key);
         });
       }
 
