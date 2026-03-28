@@ -13,16 +13,16 @@
 ## 目录说明
 
 - `index.html`：页面结构、样式与全部逻辑
-- `config.yaml`：站点全局配置（搜索引擎、热榜、天气、主题等）
-- `links.yaml`：书签分组数据
+- `config/`：站点配置目录
+  - `config/config.yaml`：站点全局配置（搜索引擎、热榜、天气、主题等）
+  - `config/links.yaml`：书签分组数据
 - `assets/`：图标字体、背景图等静态资源
 
 ## 快速部署（GitHub Pages）
 
 1. 新建仓库并上传以下文件：
    - `index.html`
-   - `config.yaml`
-   - `links.yaml`
+   - `config/`
    - `assets/`
 2. 进入仓库 `Settings -> Pages`
 3. 选择分支（`main` 或 `master`）和目录（`/`）
@@ -30,15 +30,19 @@
 
 ## 配置文件
 
-页面默认读取：`./config.yaml`
+页面默认读取：`./config/config.yaml`
 
 也可以通过 URL 参数指定：
 
-`index.html?config=./config-dev.yaml`
+`index.html?config=./config/config-dev.yaml`
 
 ## 书签文件
 
-页面默认读取：`./links.yaml`
+默认书签文件位于：`./config/links.yaml`
+
+当前默认配置 `./config/config.yaml` 中，`bookmarks.source` 建议写为相对路径：
+
+`./links.yaml`
 
 示例：
 
@@ -61,7 +65,7 @@ groups:
 - `ui.githubUrl`（例如 `https://github.com/yourname/yourrepo`，设置后会在主题切换旁显示 GitHub 图标）
 - `search.defaultEngine`
 - `search.engines[]`（`enabled/url/queryKey/params/mode`）
-- `bookmarks.source`（建议 `./links.yaml`）
+- `bookmarks.source`（相对于配置文件路径，建议 `./links.yaml`）
 - `bookmarks.requestTimeoutMs`
 - `bookmarks.visibleGroups / bookmarks.excludeGroups / bookmarks.maxLinksPerGroup`
 - `hot.defaultSource / hot.maxItems / hot.sources[]`
@@ -81,11 +85,11 @@ groups:
 
 - 项目是纯静态站点，不依赖后端。
 - 热点与天气依赖外部接口，接口不可用时不会影响书签和搜索功能。
-- 后续如接入中间件或 Git，可直接复用 `config.yaml` / `links.yaml` 作为统一数据源。
+- 后续如接入中间件或 Git，可直接复用 `config/config.yaml` / `config/links.yaml` 作为统一数据源。
 
 ## 配置要求（2026-03-03）
 
-- `index.html` 已移除内置默认配置，运行时完全依赖 `config.yaml`。
-- `config.yaml` 必须是 YAML 对象，且需包含：`ui`、`theme`、`search`、`bookmarks`、`hot`、`weather`。
+- `index.html` 已移除内置默认配置，运行时完全依赖 `config/config.yaml`。
+- `config/config.yaml` 必须是 YAML 对象，且需包含：`ui`、`theme`、`search`、`bookmarks`、`hot`、`weather`。
 - `search.engines`、`hot.sources` 必须为数组，`bookmarks.source` 不能为空。
 - 本项目本地配置与书签数据已统一为 YAML，不再支持 JSON 配置文件。
